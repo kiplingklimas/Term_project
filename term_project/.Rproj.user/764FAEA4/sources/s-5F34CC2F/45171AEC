@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "ISO8859-1",
     "folds" : "",
-    "hash" : "2474370466",
+    "hash" : "0",
     "id" : "45171AEC",
     "lastKnownWriteTime" : 1616370554,
     "last_content_update" : 1616370554,
     "path" : "~/Documents/PhD/Classes/WILD6900/Term_project/Term_project/term_project/01-data.Rmd",
     "project_path" : "01-data.Rmd",
     "properties" : {
+        "cursorPosition" : "13,268",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [
