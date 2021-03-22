@@ -1,0 +1,183 @@
+setwd("C:/Users/A02345823/Box/Lab_Group/Kipling/UWRAPAnalysis/Extract_Tables")
+setwd("C/Users/kiplingklimas/Box/Lab_Group/Kipling/UWRAPAnalysis/Extract_Tables")
+#rawdata <- read.csv("full_extract_raw.csv")
+data <- read.csv("forest_table_ly.csv")
+bhdata <- read.csv("bh_raster_compare.csv")
+
+
+ForestData <- as.data.frame(data[data$WWACH > 0])
+
+#ftype as factor
+data$ftypeM.tif <- as.factor(data$ftypeM.tif)
+data$ftypeE.tif <- as.factor(data$ftypeE.tif)
+data$ftypeH.tif <- as.factor(data$ftypeH.tif)
+data$ftypeL.tif <- as.factor(data$ftypeL.tif)
+data$asp <- as.factor(data$asp)
+data$slope <- as.factor(data$slope)
+data$wwafuel13_ <- as.factor(data$wwafuel13_)
+data$wwafuel40_ <- as.factor(data$wwafuel40_)
+data$EVT <- as.factor(data$EVT)
+data$NVCSOrd <- as.factor(data$NVCSOrd)
+data$SAFSrm <- as.factor(data$SAFSrm)
+data$wwacbh_ <- as.factor(data$wwacbh_)
+data$wwacc_ <- as.factor(data$wwacc_)
+data$wwach_ <- as.factor(data$wwach_)
+
+
+#ftype histograms
+hist(ForestData$severity[ForestData$ftypeE == "Active"])
+hist(data$severity[data$ftypeH == "Passive"])
+hist(data$severity[data$ftypeH == "Surface"])
+
+
+
+# plots ----
+#ftype density curve plots
+plot(density(data$severity[data$ftypeE.tif == "Active"]), col = "red", main = "ftypeE density curves", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "Severity")
+par(new = TRUE)
+plot(density(data$severity[data$ftypeE.tif == "Surface"]), col = "darkgreen", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ftypeE.tif == "Passive"]), col = "blue", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+legend("topright", legend = c("Active", "Surface", "Passive"), lwd = 1, col = c("red", "darkgreen", "blue"))
+
+#canopy height density curves
+plot(density(data$severity[data$wwach_ == "0 < CH < 16"]), col = "red", main = "canopy height density curves", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "Severity")
+par(new = TRUE)
+plot(density(data$severity[data$wwach_ == "16 <= CH  <33"]), col = "darkgreen", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$wwach_ == "33 <= CH < 82"]), col = "blue", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$wwach_ == "82 <= CH < 164"]), col = "orange", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+
+legend("topleft", cex = 0.74, legend = c("0 - 16", "16 - 33", "33 - 82","82 - 164"), lwd = 1, col = c("red", "darkgreen", "blue", "orange"))
+
+
+## Brian Head
+plot(density(ForestData$bh_severity[ForestData$FTYPE_E == "active"]), col = "red", main = "ftypeE density curves (Brian Head fire)", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "Severity")
+par(new = TRUE)
+plot(density(ForestData$bh_severity[ForestData$FTYPE_E == "surface"]), col = "darkgreen", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+par(new = TRUE)
+plot(density(ForestData$bh_severity[ForestData$FTYPE_E == "passive"]), col = "blue", main = "", xlim = c(-500, 1200), ylim = c(0, .0024), xlab = "")
+legend("topright", legend = c("Active", "Surface", "Passive"), lwd = 1, col = c("red", "darkgreen", "blue"))
+
+
+#VCSclass density curves
+plot(density(data$severity[data$NVCSclass == "Open tree canopy"]), col = "red", main = "NVCSclass density curves", xlim = c(-500, 1200), ylim = c(0, .0026), xlab = "Severity")
+par(new = TRUE)
+plot(density(data$severity[data$NVCSclass == "Closed tree canopy"]), col = "darkgreen", main = "", xlim = c(-500, 1200), ylim = c(0, .0026), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$NVCSclass == "Sparse tree canopy"]), col = "blue", main = "", xlim = c(-500, 1200), ylim = c(0, .0026), xlab = "")
+legend("topright", legend = c("Open", "Closed", "Sparse"), lwd = 1, col = c("red", "darkgreen", "blue"))
+
+#Canopy characteristics
+plot(density(data$severity[data$ CanopyClosure.1 == "10 <= CC < 20"]), col = "skyblue", main = "Canopy closure density curves", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "Severity")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "20 <= CC < 30"]), col = "purple", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "30 <= CC < 40"]), col = "violet", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "40 >= CC < 50"]), col = "blue", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "50 <= CC < 60"]), col = "darkblue", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "60 <= CC < 70"]), col = "darkgreen", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "70 <= CC < 80"]), col = "orange", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "80 <= CC < 90"]), col = "red", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "90 <= CC <= 100"]), col = "red", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$ CanopyClosure.1 == "Non-Forested"]), col = "grey", main = "", xlim = c(-500, 1200), ylim = c(0, .0027), xlab = "")
+legend("topleft", legend = c("10 < 20", "20 < 30", "30 < 40","40 < 50","50 < 60","60 <70","70 < 80","80 < 90"), 
+       lwd = 1, cex = 0.7, col = c("skyblue", "purple", "violet","blue","darkblue","darkgreen","orange","red"))
+
+
+#aspect density plots
+plot(density(data$severity[data$asp == "0"]), col = "red", main = "Aspect density curves", xlim = c(-200, 1000), ylim = c(0, .002), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$asp == "90"]), col = "darkgreen", main = "", xlim = c(-200, 1000), ylim = c(0, .002), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$asp == "180"]), col = "blue", main = "", xlim = c(-200, 1000), ylim = c(0, .002), xlab = "")
+par(new = TRUE)
+plot(density(data$severity[data$asp == "270"]), col = "tan", main = "", xlim = c(-200, 1000), ylim = c(0, .002), xlab = "")
+legend("topright", legend = c("North", "East", "South", "West"), lwd = 1, col = c("red", "darkgreen", "blue", "tan"))
+
+# tests ----
+
+#ftype k-s test
+ks.test((data$severity[data$ftypeE.tif == "Passive"]),(data$severity[data$ftypeE.tif == "Surface"]),
+        alternative = "two.sided",
+        exact = NULL)
+
+## ftypeE ANOVA
+boxplot(severity~ftypeH.tif, data=data)
+fit.ftypeE <- aov(severity~ftypeE.tif, data=data)
+summary(fit.ftypeE)
+TukeyHSD(fit.ftypeE)
+
+## canopy height ANOVA
+boxplot(severity~wwach_, data=data)
+fit.wwach <- aov(severity~wwach_, data=data)
+summary(fit.wwach)
+TukeyHSD(fit.wwach)
+
+# chi square test - categorical severity vs. ftype (data.kk)
+library(ggplot2)
+
+ggplot(data)+
+  aes(x =ftypeE, fill = severity_cat) +
+  geom_bar() +
+  scale_fill_hue() +
+  theme_minimal()
+
+test <- table(data$severity_cat, data$wwacc)
+
+xtest <- chisq.test(test)
+xtest
+  #post-hoc
+chisq.posthoc.test(test)
+# significant relationship between ftypeE and severity
+
+#linear regressions
+plot(data$severity~data$fri)
+
+lm <- lm(severity~fri, data = data)
+summary(lm)
+
+par(mfrow = c(2,2))
+plot(lm)
+
+
+## Random Forest variable importance- remember to define column types (factors, integers, etc.)
+library(randomForest)
+
+severity_importance = randomForest(severity~dem + flmlnA.tif + flmlnE.tif + flmlnH.tif + flmlnL.tif + flmlnM.tif+
+                                    fri + fti + ros + rosE.tif + rosH.tif + rosL.tif + rosM.tif + slope + sdr +
+                                     ftypeE.tif +ftypeM.tif + ftypeH.tif + ftypeL.tif +
+                                     wwacc_ + wwach_ + wwafuel40_ + wwafuel13_ + wwacbh_ + EVT +SystGrp +SAFSrm,
+                                    data = data, mtry = 3,
+                                   importance=TRUE, na.action = na.exclude)
+severity_importance
+varImpPlot(severity_importance, scale = FALSE)
+severity_importance$importance
+
+sev <- data.frame(severity_importance$importance)
+
+## layerstats
+brian_head_stats=layerStats(brian_head, 'pearson', na.rm=T)
+corr_matrix=brian_head_stats$'pearson correlation coefficient'
+
+corrplot(corr_matrix, method = "number", type = "full" ,is.corr = TRUE, number.cex = 0.5) 
+corr_matrix
+
+
+# canopy closure cats (<40%, >40%)
+
+#added column cc_cat: 0 = <40% cc, 1 = >40% cc
+
+fit <- aov(severity~cc_cat, data = data)
+anova(fit)
+summary(fit) # pval <0.001
+
+

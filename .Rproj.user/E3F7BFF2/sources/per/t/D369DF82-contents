@@ -1,0 +1,36 @@
+# proposal
+## Utah fires project proposal
+Kipling Klimas
+
+WILD 6920 - ArcPython scripting
+
+Spring 2021
+
+### Introduction
+The goal of this project is to analyze the relationship between burn severity and fire risk predictor variable layers for the state of Utah. Post-wildfire burn severity response data is readily available from public databases such as the Monitoring Trends in Burn Severity (MTBS) data clearinghouse. The predictive wildfire risk and behavior variables are available at the state level in Utah from the Utah Wildfire Risk Assessment Portal (UWRAP). The specific objective of this project is to assess the efficacy of fire risk/behavior data at predicting burn severity in a spatial context. Both burn severity and predictor variable data are available in GIS raster layers. 
+
+The specific objective of this semester project is to develop a tool that clips predictor variable raster layers from UWRAP to the perimeter(s) of wildfires that have burned in Utah between 2012-2018. When a group of rasters match in dimensions and extent, cell-level correlation analyses can be performed to assess the absolute relationship between remotely sensed burn severity and continuous fire risk/behavior variables (Figure 1). 
+
+![Figure 1: Raw burn severity rasters from MTBS for the state of Utah. Predictor fire risk/behavior layers from UWRAP are to be clipped to match the extent and dimensions of the rasters shown in the figure. ](C:/Users/A02345823/Box/Lab_Group/Kipling/UWRAPAnalysis/Figures/mtbs_fires_plot.png)
+
+
+
+### Data and parameters
+Input data are already acquired. Required response data: 30m Relative differenced Normalized Burn Ratio (RdNBR) raster data (available from MTBS). Required predictor data: 30m wildfire risk and behavior raster layers (available from UWRAP). 
+
+### Limitations
+1. I have tried several different approaches to doing cell-level analyses on rasters, the main obstacle: rasters can be huge. For example, a 70,000 acre wildfire at 30m resolution can have in excess of 1 million pixels! The combine function in ArcMap only gets one so far - it cannot compute an attribute table for as many predictor layers as I need to analyze. 
+2. There is a function 'layerstats' in the `raster` prackage that computes correlation statistics for any rasterstack object;
+3. In order to 'stack' rasters in a rasterstack object the rasters need to match in extent and dimensions;
+4. Clipping a raster from the wildfire burn perimeter .shp (also available from MTBS) does not produce a raster that matches the extent and dimensions of the RdNBR burn severity raster. Cellular stats cannot be run on non-stackable rasters.
+5. Are the RdNBR rasters multipart?
+6. Rasters need to be aligned.
+7. ArcPy does not support raster editing, so I will need to create new rasters, clipped from input predictor layers.
+
+
+### Solutions
+1. I propose creating a tool that creates new raster layers, clipped to the extent and dimensions as the input burn severity rasters. 
+2. The tool will first create a polygon mask for the input wildfire raster;
+3. Next the tool will dissolve the interior of the polygons to make them single-part
+4. Next the tool will clip input predictor variable rasters to the polygon mask
+5. The resulting clipped rasters can be exported as .tif's for analysis in R

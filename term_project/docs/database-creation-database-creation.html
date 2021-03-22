@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data description and database structure | Term project draft</title>
+  <title>Chapter 3 Database creation {#database creation} | Term project draft</title>
   <meta name="description" content="This is the term project for WILD6900 spring 2021." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data description and database structure | Term project draft" />
+  <meta property="og:title" content="Chapter 3 Database creation {#database creation} | Term project draft" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data description and database structure | Term project draft" />
+  <meta name="twitter:title" content="Chapter 3 Database creation {#database creation} | Term project draft" />
   
   <meta name="twitter:description" content="This is the term project for WILD6900 spring 2021." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="creation.html"/>
+<link rel="prev" href="data.html"/>
+<link rel="next" href="start.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -133,7 +133,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data description and database structure</a></li>
-<li class="chapter" data-level="3" data-path="creation.html"><a href="creation.html"><i class="fa fa-check"></i><b>3</b> Database creation</a></li>
+<li class="chapter" data-level="3" data-path="database-creation-database-creation.html"><a href="database-creation-database-creation.html"><i class="fa fa-check"></i><b>3</b> Database creation {#database creation}</a></li>
+<li class="chapter" data-level="4" data-path="start.html"><a href="start.html"><i class="fa fa-check"></i><b>4</b> Start</a></li>
+<li class="chapter" data-level="5" data-path="establish-database-connection.html"><a href="establish-database-connection.html"><i class="fa fa-check"></i><b>5</b> Establish database connection</a></li>
+<li class="chapter" data-level="6" data-path="create-trees-table.html"><a href="create-trees-table.html"><i class="fa fa-check"></i><b>6</b> Create trees table</a></li>
+<li class="chapter" data-level="7" data-path="create-stands-table.html"><a href="create-stands-table.html"><i class="fa fa-check"></i><b>7</b> Create stands table</a></li>
+<li class="chapter" data-level="8" data-path="create-fuels-table.html"><a href="create-fuels-table.html"><i class="fa fa-check"></i><b>8</b> Create fuels table</a></li>
+<li class="chapter" data-level="9" data-path="create-plots-table.html"><a href="create-plots-table.html"><i class="fa fa-check"></i><b>9</b> Create plots table</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -155,23 +161,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Data description and database structure</h1>
-<p>Forest strcuture and fuels data are needed to model fire behavior and predict burn severity spatially.</p>
-<p><img src="db_structure.png" style="display: block; margin: auto;" />
-Figure 1: databse structure for forest and fuels inventory.</p>
-<p>This database structure is compatible with tree and stand level forest simulation software such as the Forest Vegetation Simulator (FVS) which can be used to model forest structure over time. An advantage of this approach and structure is these data allow detailed simulation of mortality during fire.</p>
-<p>Tree level data are related to plot polygons that allow for stand-level simulation. Fuels data is required for modeled fire behavior, such as flame length, rate or spread or fire type (surface, passive or active).</p>
-<p>Whether or not these tables become populated remains to be seen- a disadvantage of this approach is that fuel reduction treatments are not readily applied to the landscape in question. It is also only useable for fire behavior modeling as an ArcMap toolbar extension.</p>
-
+<div id="database-creation-database-creation" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Database creation {#database creation}</h1>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="creation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="start.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

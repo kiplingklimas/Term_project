@@ -1,0 +1,108 @@
+## Merge/Combine rasters
+
+#setwd("C:/Users/A02345823/Documents/UWrap.gdb")
+setwd("C:/Users/A02345823/Documents/UWRAP analysis/Fires/select_fire_tiffs")
+setwd("C:/Users/A02345823/Box/Lab_Group/Kipling/UWRAPAnalysis/Rasters/brian_head_tiffs")
+
+setwd("/Users/kiplingklimas/Box/Lab_Group/Kipling/UWRAPAnalysis/Rasters/brian_head_tiffs")
+setwd("C:/Users/A02345823/Box/Lab_Group/Kipling/UWRAPAnalysis/Rasters/UWRAP_tiffs")
+install.packages('rjags')
+install.packages('spatialEco')
+
+#load up
+library(raster)
+library(rjags)
+library(spatialEco)
+
+
+# load UWRAP layers
+uwrap_list <- dir(getwd(), "*.tif$")
+newcolnames <- sub("\\_.*", "", uwrap_list)
+names(bh_list) <- newcolnames
+ras <- lapply(uwrap_list, raster)
+
+rasters <- unlist(ras)
+
+# Load fire rasters ####
+
+mtbs <- raster("MTBSRasters.tif")
+bh_cc <- raster("bh_cc")
+plocs <- raster("clay_springs.tif")
+des <- raster("deseret.tif")
+lp <- raster("little_pine.tif")
+tr <- raster("tribal.tif")
+pc <- raster("pole_creek.tif")
+
+
+# rename rasters ####
+
+for(i in 1:length(ras)) {
+  
+  i <- names(newcolnames)
+  
+  names(ras) <- sub(names(ras[[i]]))
+  
+}
+
+names(ras) <- newcolnames
+
+asp <- ras[[1]]
+b_head <- ras[[2]]
+dem <- ras[[3]]
+evh <- ras[[4]]
+evt <- ras[[5]]
+fa <- ras[[6]]
+flmln_a <- ras[[7]]
+flmln_e <- ras[[8]]
+flmln_h <- ras[[9]]
+flmln_l <- ras[[10]]
+flmln_m <- ras[[11]]
+fri <- ras[[12]]
+fti <- ras[[13]]
+ftype_a <- ras[[14]]
+ftype_e <- ras[[15]]
+ftype_h <- ras[[16]]
+ftype_l <- ras[[17]]
+ftype_m <- ras[[18]]
+ros_a <- ras[[19]]
+ros_e <- ras[[20]]
+ros_h <- ras[[21]]
+ros_l <- ras[[22]]
+ros_m <- ras[[23]]
+sdr <- ras[[24]]
+cbd <- ras[[25]]
+cbh <- ras[[26]]
+cc <- ras[[27]]
+ch <- ras[[28]]
+fuels13 <- ras[[29]]
+fuels40 <- ras[[30]]
+
+# stacks ####
+
+brian_head <- stack(b_head, asp, dem, flmln_a, flmln_e, flmln_h, flmln_l, flmln_m,
+                    fri, fti, ros_a, ros_e, ros_h, ros_l, ros_m, sdr)
+
+brian_head_cat <- stack(b_head, asp, dem, ftype_e, ftype_h, ftype_h, ftype_l, ftype_m, cbd, cbh, cc, ch, fuels13, fuels40)
+
+
+b_head_comb <- matrix(combine(brian_head_cat, sp = FALSE))
+
+
+## layerstats
+library(corrplot)
+brian_head_stats=layerStats(brian_head, 'pearson', na.rm=T)
+corr_matrix=brian_head_stats$'pearson correlation coefficient'
+
+corrplot(corr_matrix, method = "number", type = "full" ,is.corr = TRUE, number.cex = 0.5) 
+corr_matrix
+
+cm <- as.data.frame(as.matrix(corr_matrix))
+
+#multiply by 100, look at number of decimals, MAKE INTEGERS
+
+# raster correlation
+
+library(spatialEco)
+r <- rasterCorrelation(ras$brian, ras$flml2, s = 3, type = "spearman", file.name = "bh_cc.tif")
+plot(r)
+
