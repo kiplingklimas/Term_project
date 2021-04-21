@@ -24,7 +24,7 @@
 <meta name="author" content="Kipling Klimas" />
 
 
-<meta name="date" content="2021-03-21" />
+<meta name="date" content="2021-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="data.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="tidyverse.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,66 +53,41 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -134,6 +109,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data description and database structure</a></li>
 <li class="chapter" data-level="3" data-path="creation.html"><a href="creation.html"><i class="fa fa-check"></i><b>3</b> Database creation</a></li>
+<li class="chapter" data-level="4" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4</b> Data manipulation</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -159,71 +135,147 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 3</span> Database creation</h1>
 <p>Start</p>
 <p>Install and open packages <code>RSQLite</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;RSQLite&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(RSQLite)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;RSQLite&quot;</span>)
+<span class="kw">library</span>(RSQLite)</code></pre></div>
 <p>Establish database connection</p>
 <p>Connecting to the term_project database</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">term_project &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="dt">drv =</span> RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">                        <span class="st">&quot;/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/databases/term_project.db&quot;</span>)</a></code></pre></div>
-<p>Create trees table
-Term project database creation based on structure in figure 1</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE trees(</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">tree_id integer PRIMARY KEY AUTOINCREMENT,</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">tree_number varchar(5),</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">plot_id float,</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">stand_id float,</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">tree_sp varchar(4),</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">dbh_cm float,</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">height_cm float, </span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">cbh_cm float,</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">FOREIGN KEY(plot_id) REFERENCES plots(plot_id)</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">FOREIGN KEY(stand_id) REFERENCES stands(stand_id)</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">);&quot;</span>)</a></code></pre></div>
-<p>Create stands table</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE stands(</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">stand_id integer PRIMARY KEY AUTOINCREMENT,</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">stand_number varchar(5),</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">plot_id float,</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">ba_m_ha float,</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">cbd_kg_m3 float,</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">tpa float,</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">cc_percent float,</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">stand_density float, </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">FOREIGN KEY(plot_id) REFERENCES plots(plot_id)</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">);&quot;</span>)</a></code></pre></div>
-<p>Create fuels table</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE fuels(</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">fuel_id integer PRIMARY KEY AUTOINCREMENT,</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">stand_id float,</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">plot_id float,</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">fuel_model varchar(6),</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">one_hr float,</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">ten_hr float,</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">hundred_hr float,</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">thousand_hr float,</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">coarse_wd float,</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">fine_wd float,</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="st">FOREIGN KEY(stand_id) REFERENCES stands(stand_id)</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">FOREIGN KEY(plot_id) REFERENCES plots(plot_id)</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">);&quot;</span>)</a></code></pre></div>
-<p>Create plots table</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE plots(</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">plot_id integer PRIMARY KEY AUTOINCREMENT,</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">stand_id float,</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">fuel_id float,</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">plot_number float,</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">plot_area_m2 float,</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">date text,</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">utm_x float,</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">utm_y float,</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="st">elevation float,</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="st">slope float,</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">aspect varchar(3),</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">county text,</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="st">ranger_district text,</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="st">FOREIGN KEY(stand_id) REFERENCES stands(stand_id)</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="st">FOREIGN KEY(fuel_id) REFERENCES fuels(fuel_id)</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="st">);&quot;</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">term_project &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="dt">drv =</span> RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),
+                        <span class="st">&quot;C:/Users/A02345823/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db&quot;</span>)</code></pre></div>
+<p>Create severity table Term project database creation based on structure in figure 1</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE severity(</span>
+<span class="st">severity_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">MTBSdNBR float,</span>
+<span class="st">severity float</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create forest behavior table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE forest_behavior(</span>
+<span class="st">forest_behave_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">flmlnA float,</span>
+<span class="st">flmlnE float,</span>
+<span class="st">flmlnH float,</span>
+<span class="st">flmlnL float,</span>
+<span class="st">flmlnM float,</span>
+<span class="st">ftype_E float,</span>
+<span class="st">ftype_H float,</span>
+<span class="st">ftype_L float,</span>
+<span class="st">ftype_M float,</span>
+<span class="st">ros float,</span>
+<span class="st">rosE float,</span>
+<span class="st">rosH float,</span>
+<span class="st">rosL float,</span>
+<span class="st">rosM float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create forest risk table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE forest_risk(</span>
+<span class="st">forest_risk_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">fri float,</span>
+<span class="st">fti float,</span>
+<span class="st">sdr varchar(12),</span>
+<span class="st">WHP float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create forest_structure table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE forest_structure(</span>
+<span class="st">str_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">wwacbd float,</span>
+<span class="st">wwacbh float,</span>
+<span class="st">wwacc float,</span>
+<span class="st">wwach float,</span>
+<span class="st">wwafuel13 float,</span>
+<span class="st">wwafuel40 float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create forest_topo table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE forest_topo(</span>
+<span class="st">forest_topo_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">asp varchar(5),</span>
+<span class="st">dem float,</span>
+<span class="st">slope float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create forest_veg table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE forest_veg(</span>
+<span class="st">forest_veg_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">EVT varchar(60),</span>
+<span class="st">SystGrp varchar(60),</span>
+<span class="st">SAFSrm varchar(60),</span>
+<span class="st">NVCSOrd varchar(16),</span>
+<span class="st">NVCSclass varchar(25),</span>
+<span class="st">NVCSsubclass varchar(40),</span>
+<span class="st">SYSTMGRPPH varchar(30),</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create non-forest db tables</p>
+<p>Create non-forest behavior table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE nf_behavior(</span>
+<span class="st">nf_behave_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">flmlnA float,</span>
+<span class="st">flmlnE float,</span>
+<span class="st">flmlnH float,</span>
+<span class="st">flmlnL float,</span>
+<span class="st">flmlnM float,</span>
+<span class="st">ftype_E float,</span>
+<span class="st">ftype_H float,</span>
+<span class="st">ftype_L float,</span>
+<span class="st">ftype_M float,</span>
+<span class="st">ros float,</span>
+<span class="st">rosE float,</span>
+<span class="st">rosH float,</span>
+<span class="st">rosL float,</span>
+<span class="st">rosM float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create non-forest risk table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE nf_risk(</span>
+<span class="st">nf_risk_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">fri float,</span>
+<span class="st">fti float,</span>
+<span class="st">sdr varchar(12),</span>
+<span class="st">WHP float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create non-forest_structure table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE nf_structure(</span>
+<span class="st">nf_str_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">wwacbd float,</span>
+<span class="st">wwacbh float,</span>
+<span class="st">wwacc float,</span>
+<span class="st">wwach float,</span>
+<span class="st">wwafuel13 float,</span>
+<span class="st">wwafuel40 float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create non-forest_topo table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE nf_topo(</span>
+<span class="st">nf_topo_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">asp varchar(5),</span>
+<span class="st">dem float,</span>
+<span class="st">slope float,</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
+<p>Create non-forest_veg table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbExecute</span>(term_project, <span class="st">&quot;CREATE TABLE nf_veg(</span>
+<span class="st">nf_veg_id integer NOT NULL PRIMARY KEY,</span>
+<span class="st">severity_id float,</span>
+<span class="st">EVT varchar(60),</span>
+<span class="st">SystGrp varchar(60),</span>
+<span class="st">SAFSrm varchar(60),</span>
+<span class="st">NVCSOrd varchar(16),</span>
+<span class="st">NVCSclass varchar(25),</span>
+<span class="st">NVCSsubclass varchar(40),</span>
+<span class="st">SYSTMGRPPH varchar(30),</span>
+<span class="st">FOREIGN KEY(severity_id) REFERENCES severity(severity_id)</span>
+<span class="st">);&quot;</span>)</code></pre></div>
 
 </div>
             </section>
@@ -232,7 +284,7 @@ Term project database creation based on structure in figure 1</p>
         </div>
       </div>
 <a href="data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tidyverse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
