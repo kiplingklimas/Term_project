@@ -20,80 +20,189 @@ Connecting to the term_project database
 
 ```{r db_connect, eval = FALSE, echo = TRUE}
 term_project <- dbConnect(drv = RSQLite::SQLite(),
-                        "/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/databases/term_project.db")
+                        "C:/Users/A02345823/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db")
 ```
 
-Create trees table
+Create severity table
 Term project database creation based on structure in figure 1
 
-```{r create_trees, eval = FALSE, echo = TRUE}
-dbExecute(term_project, "CREATE TABLE trees(
-tree_id integer PRIMARY KEY AUTOINCREMENT,
-tree_number varchar(5),
-plot_id float,
-stand_id float,
-tree_sp varchar(4),
-dbh_cm float,
-height_cm float, 
-cbh_cm float,
-FOREIGN KEY(plot_id) REFERENCES plots(plot_id)
-FOREIGN KEY(stand_id) REFERENCES stands(stand_id)
+```{r severity, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE severity(
+severity_id integer NOT NULL PRIMARY KEY,
+MTBSdNBR float,
+severity float
 );")
 ```
 
-Create stands table
+Create forest behavior table
 
-```{r stands, eval = FALSE, echo = TRUE}
-dbExecute(term_project, "CREATE TABLE stands(
-stand_id integer PRIMARY KEY AUTOINCREMENT,
-stand_number varchar(5),
-plot_id float,
-ba_m_ha float,
-cbd_kg_m3 float,
-tpa float,
-cc_percent float,
-stand_density float, 
-FOREIGN KEY(plot_id) REFERENCES plots(plot_id)
+```{r forest_behavior, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE forest_behavior(
+forest_behave_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+flmlnA float,
+flmlnE float,
+flmlnH float,
+flmlnL float,
+flmlnM float,
+ftype_E float,
+ftype_H float,
+ftype_L float,
+ftype_M float,
+ros float,
+rosE float,
+rosH float,
+rosL float,
+rosM float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
 );")
 ```
 
-Create fuels table
+Create forest risk table
 
-```{r fuels, eval = FALSE, echo = TRUE}
-dbExecute(term_project, "CREATE TABLE fuels(
-fuel_id integer PRIMARY KEY AUTOINCREMENT,
-stand_id float,
-plot_id float,
-fuel_model varchar(6),
-one_hr float,
-ten_hr float,
-hundred_hr float,
-thousand_hr float,
-coarse_wd float,
-fine_wd float,
-FOREIGN KEY(stand_id) REFERENCES stands(stand_id)
-FOREIGN KEY(plot_id) REFERENCES plots(plot_id)
+```{r forest_risk, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE forest_risk(
+forest_risk_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+fri float,
+fti float,
+sdr varchar(12),
+WHP float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
 );")
 ```
 
-Create plots table
+Create forest_structure table
 
-```{r plots, eval = FALSE, echo = TRUE}
-dbExecute(term_project, "CREATE TABLE plots(
-plot_id integer PRIMARY KEY AUTOINCREMENT,
-stand_id float,
-fuel_id float,
-plot_number float,
-plot_area_m2 float,
-date text,
-utm_x float,
-utm_y float,
-elevation float,
+```{r forst_structure, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE forest_structure(
+str_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+wwacbd float,
+wwacbh float,
+wwacc float,
+wwach float,
+wwafuel13 float,
+wwafuel40 float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
+Create forest_topo table
+
+```{r forest_topo, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE forest_topo(
+forest_topo_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+asp varchar(5),
+dem float,
 slope float,
-aspect varchar(3),
-county text,
-ranger_district text,
-FOREIGN KEY(stand_id) REFERENCES stands(stand_id)
-FOREIGN KEY(fuel_id) REFERENCES fuels(fuel_id)
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
 );")
 ```
+
+
+Create forest_veg table
+
+```{r forest_veg, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE forest_veg(
+forest_veg_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+EVT varchar(60),
+SystGrp varchar(60),
+SAFSrm varchar(60),
+NVCSOrd varchar(16),
+NVCSclass varchar(25),
+NVCSsubclass varchar(40),
+SYSTMGRPPH varchar(30),
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
+Create non-forest db tables
+
+Create non-forest behavior table
+
+```{r nf_behavior, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE nf_behavior(
+nf_behave_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+flmlnA float,
+flmlnE float,
+flmlnH float,
+flmlnL float,
+flmlnM float,
+ftype_E float,
+ftype_H float,
+ftype_L float,
+ftype_M float,
+ros float,
+rosE float,
+rosH float,
+rosL float,
+rosM float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
+Create non-forest risk table
+
+```{r nf_risk, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE nf_risk(
+nf_risk_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+fri float,
+fti float,
+sdr varchar(12),
+WHP float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
+Create non-forest_structure table
+
+```{r nf_structure, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE nf_structure(
+nf_str_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+wwacbd float,
+wwacbh float,
+wwacc float,
+wwach float,
+wwafuel13 float,
+wwafuel40 float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
+Create non-forest_topo table
+
+```{r nf_topo, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE nf_topo(
+nf_topo_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+asp varchar(5),
+dem float,
+slope float,
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
+
+Create non-forest_veg table
+
+```{r nf_veg, eval = FALSE, echo = TRUE}
+dbExecute(term_project, "CREATE TABLE nf_veg(
+nf_veg_id integer NOT NULL PRIMARY KEY,
+severity_id float,
+EVT varchar(60),
+SystGrp varchar(60),
+SAFSrm varchar(60),
+NVCSOrd varchar(16),
+NVCSclass varchar(25),
+NVCSsubclass varchar(40),
+SYSTMGRPPH varchar(30),
+FOREIGN KEY(severity_id) REFERENCES severity(severity_id)
+);")
+```
+
