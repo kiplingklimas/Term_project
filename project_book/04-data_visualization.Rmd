@@ -1,0 +1,9 @@
+# Data visualization {#dataviz}
+
+
+```{r begin, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Start
+
