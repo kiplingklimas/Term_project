@@ -1,9 +1,83 @@
-# Data visualization {#dataviz}
+# Data visualization {#tidyverse}
 
 
 ```{r begin, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Start
+Install packages `tidyverse` and `viridis`
 
+```{r load_packages, eval = TRUE, echo = TRUE}
+library(tidyverse)
+library(viridis)
+library(RSQLite)
+library(DBI)
+```
+
+Connect to database 'severity' and create tables
+
+```{r connection, eval=TRUE, echo=TRUE}
+severity_db <- dbConnect(drv = RSQLite::SQLite(),
+                "/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db")
+
+severity <- dbGetQuery(severity_db, "SELECT * FROM severity;")
+forest_behavior <- dbGetQuery(severity_db, "SELECT * FROM forest_behavior;")
+forest_risk <- dbGetQuery(severity_db, "SELECT * FROM forest_risk;")
+forest_structure <- dbGetQuery(severity_db, "SELECT * FROM forest_structure;")
+forest_topo <- dbGetQuery(severity_db, "SELECT * FROM forest_topo;")
+forest_veg <- dbGetQuery(severity_db, "SELECT * FROM forest_veg;")
+nf_behavior <- dbGetQuery(severity_db, "SELECT * FROM nf_behavior;")
+nf_risk <- dbGetQuery(severity_db, "SELECT * FROM nf_risk;")
+nf_structure <- dbGetQuery(severity_db, "SELECT * FROM nf_structure;")
+nf_topo <- dbGetQuery(severity_db, "SELECT * FROM nf_topo;")
+nf_veg <- dbGetQuery(severity_db, "SELECT * FROM nf_veg;")
+```
+
+This is fire severity dataset shows the relationship between severity measurements and a variety of predictive variables
+including topographic, vegetation, structural and derived risk indices. 
+Data was differentiated between forest and non-forest points to compare severity relationships between forests and non-forest 
+landcover systems. 
+
+Simple scatter plot of forest severity by elevation (m)
+
+```{r simple_plots, eval=TRUE, echo=TRUE}
+forest_topo %>% 
+  left_join(severity, by = "severity_id") %>% 
+  select(dem, severity) %>% 
+  ggplot(aes(x = dem, y = severity)) +
+  geom_point() +
+  labs(y = "Severity (dNBR)", x = "Elevation (m)") +
+  theme_light()
+
+```
+
+Density curves of fire type extreme by severity
+
+```{r fire_behavior, eval=TRUE, echo=TRUE}
+forest_behavior %>% 
+  left_join(severity, by = "severity_id") %>% 
+  mutate(ftypeE = case_when(
+    ftype_E == 3 ~ "Surface",
+    ftype_E == 4 ~ "Passive",
+    ftype_E == 5 ~ "Passive",
+    ftype_E == 6 ~ "Active",
+    ftype_E == 7 ~ "Active",
+  )) %>% 
+  ggplot(aes(x = severity, color = ftypeE)) +
+  geom_density() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(y = "Density", x = "Severity") 
+
+```
+
+Bar plot of canopy categories
+
+```{r fbarplot, eval=TRUE, echo=TRUE}
+forest_veg %>% 
+  left_join(severity, by = "severity_id") %>% 
+  filter(!is.na(severity_id)) %>% 
+  ggplot(aes(x = NVCSsubclass, y = severity)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(y = "Severity (dNBR)", x = "Vegetation type") 
+```

@@ -1,0 +1,34 @@
+# Database connection {#SQL}
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Start
+
+Install package `RSQLite`
+
+```{r install_RSQLite, eval = FALSE, echo = TRUE}
+install.packages("RSQLite")
+library(RSQLite)
+```
+
+Establish datebase connection and create tables
+
+```{r db_connection, eval=FALSE, echo=TRUE}
+severity_db <- dbConnect(drv = RSQLite::SQLite(),
+                "/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db")
+
+severity <- dbGetQuery(severity_db, "SELECT * FROM severity;")
+forest_behavior <- dbGetQuery(severity_db, "SELECT * FROM forest_behavior;")
+forest_risk <- dbGetQuery(severity_db, "SELECT * FROM forest_risk;")
+forest_structure <- dbGetQuery(severity_db, "SELECT * FROM forest_structure;")
+forest_topo <- dbGetQuery(severity_db, "SELECT * FROM forest_topo;")
+forest_veg <- dbGetQuery(severity_db, "SELECT * FROM forest_veg;")
+nf_behavior <- dbGetQuery(severity_db, "SELECT * FROM nf_behavior;")
+nf_risk <- dbGetQuery(severity_db, "SELECT * FROM nf_risk;")
+nf_structure <- dbGetQuery(severity_db, "SELECT * FROM nf_structure;")
+nf_topo <- dbGetQuery(severity_db, "SELECT * FROM nf_topo;")
+nf_veg <- dbGetQuery(severity_db, "SELECT * FROM nf_veg;")
+```

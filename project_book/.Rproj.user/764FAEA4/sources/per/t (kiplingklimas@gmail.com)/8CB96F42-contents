@@ -1,0 +1,250 @@
+library(tidyverse)
+library(DBI)
+
+dragons_db <- dbConnect(RSQLite::SQLite(), 
+                        "../../Course Material/Data/dragons/dragons.db")
+
+dragons <- dbGetQuery(dragons_db, "SELECT * FROM dragons;")
+capture_sites <- dbGetQuery(dragons_db, "SELECT * FROM capture_sites;")
+captures <- dbGetQuery(dragons_db, "SELECT * FROM captures;")
+morphometrics <- dbGetQuery(dragons_db, "SELECT * FROM morphometrics;")
+diet <- dbGetQuery(dragons_db, "SELECT * FROM diet;")
+tags <- dbGetQuery(dragons_db, "SELECT * FROM tags;")
+deployments <- dbGetQuery(dragons_db, "SELECT * FROM deployments;")
+telemetry <- dbGetQuery(dragons_db, "SELECT * FROM gps_data;")
+
+class(morphometrics)
+
+head(morphometrics)
+
+# Select ####
+
+body_wing <- select(morphometrics, 
+                    dragon_id, 
+                    date, 
+                    total_body_length_cm, 
+                    wingspan_cm)
+
+head(body_wing)
+
+head(morphometrics)
+
+no_pkey <- select(morphometrics, -measurement_id)
+
+head(no_pkey)
+
+measures <- select(morphometrics, total_body_length_cm:claw_length_cm)
+
+head(measures)
+
+id_date <- select(morphometrics, id = dragon_id, date)
+head(id_date)
+
+# Filter ####
+
+larger_than_10m <- filter(morphometrics, wingspan_cm > 1000)
+head(larger_than_10m)
+
+morphometrics[morphometrics$wingspan_cm > 1000, ]
+
+# Pipes ####
+
+larger_than_10m <- morphometrics %>% 
+  select(-measurement_id) %>% 
+  filter(wingspan_cm > 1000)
+
+# Mutate ####
+
+larger_than_10m <- morphometrics %>% 
+  select(-measurement_id) %>% 
+  mutate(wingspan_m = wingspan_cm/100) %>% 
+  filter(wingspan_m > 10)
+
+head(larger_than_10m)
+
+# Slice ####
+
+larger_than_10 <- morphometrics %>% 
+  select(-measurement_id) %>% 
+  mutate(wingspan_m = wingspan_cm/100) %>% 
+  filter(wingspan_m > 10) 
+
+morphometrics %>% 
+  select(-measurement_id) %>% 
+  mutate(wingspan_m = wingspan_cm/100) %>% 
+  filter(wingspan_m > 10) %>% 
+  slice(c(5, 12, 38))
+
+# Tibbles ####
+
+tib <- morphometrics %>% 
+  as_tibble() %>% 
+  select(-measurement_id) %>% 
+  mutate(wingspan_m = wingspan_cm/100) %>% 
+  filter(wingspan_m > 10)
+
+class(tib)
+
+morph_df <- as.data.frame(tib)
+class(morph_df)
+
+morph_tib <- as_tibble(morph_df)
+class(morph_tib)
+
+# Joins ####
+
+morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id")
+
+morphometrics %>% 
+  as_tibble() %>% 
+  rename(dragon = dragon_id) %>% 
+  left_join(dragons, by = c("dragon" = "dragon_id")) %>% 
+  select(-update_timestamp) 
+
+# Relocate ####
+
+morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  relocate(age_class, .after = dragon_id)
+
+morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  relocate(sex:species, .before = date)
+
+# Group by ####
+
+morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(age_class) %>% 
+  summarize(min_tail = min(tail_length_cm),
+            mean_tail = mean(tail_length_cm),
+            max_tail = max(tail_length_cm))
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(species) %>% 
+  tally() %>% 
+  arrange(desc(n))
+  
+# Pull ####
+
+species_over_40 <- dragons %>% 
+  group_by(species) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  filter(n >= 40) %>% 
+  pull(species)
+  
+morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  filter(species %in% species_over_40)
+
+# Case when ####
+
+dragons %>% 
+  as_tibble() %>% 
+  mutate(age_sex = case_when(
+    sex == "F" & age_class == "Adult" ~ "Adult Female",
+    sex == "M" & age_class == "Adult" ~ "Adult Male",
+    sex == "F" & age_class == "Subadult" ~ "Subadult Female",
+    sex == "M" & age_class == "Subadult" ~ "Subadult Male",
+    is.na(sex) & age_class == "Juvenile" ~ "Juvenile Unknown"
+  ))
+
+dragons %>% 
+  as_tibble() %>% 
+  mutate(sex2 = case_when(
+    is.na(sex) ~ "Unknown",
+    TRUE ~ sex
+  ))
+
+# Pivot ####
+
+head(morphometrics)
+
+?pivot_longer
+?pivot_wider
+
+morph_long <- morphometrics %>% 
+  pivot_longer(cols = total_body_length_cm:claw_length_cm,
+               names_to = "measurement",
+               values_to = "value")
+
+morph_wide <- morph_long %>% 
+  pivot_wider(names_from = measurement,
+              values_from = value)
+
+# Grouping pt. 2 ####
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(species, age_class) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  group_by(species) %>% 
+  tally()
+
+morphometrics %>% 
+  slice(1:6) 
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(species) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  slice(1)
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(species) %>% 
+  arrange(total_body_length_cm) %>% 
+  slice(1)
+
+# Multiple logical conditions ####
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  filter(total_body_length_cm > 1000 & age_class == "Adult") %>% 
+  nrow()
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  filter(total_body_length_cm > 1000 & 
+           (age_class == "Adult" | 
+           age_class == "Subadult")) %>% 
+  nrow()
+
+# Case studies ####
+
+full <- read_csv("input/full_data.csv")
+
+names(full)
+
+dragons2 <- full %>% 
+  select(dragon_id, sex, age_class, species) %>% 
+  distinct()
+
+diet2 <- full %>% 
+  select(dragon_id, sample_id, date_diet_sample, item_id, item) %>% 
+  mutate(pkey = 1:nrow(.))
+
+# Manipulating strings ####
+
+dep_alt <- read_csv("input/deployments_alt.csv") %>% 
+  mutate(tag_id = word(deployment_id, 
+                       start = 1, 
+                       end = 1, 
+                       sep = "_"),
+         dragon_id = word(deployment_id,
+                          start = 2, 
+                          end = 2,
+                          sep = "_"),
+         deployment_id = 1:nrow(.)) %>% 
+  select(-X1) %>% 
+  relocate(dragon_id, tag_id, .after = deployment_id)

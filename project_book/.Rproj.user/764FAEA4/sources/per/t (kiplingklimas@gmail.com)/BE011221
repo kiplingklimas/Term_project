@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1619188899097.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "962742276",
+    "id" : "BE011221",
+    "lastKnownWriteTime" : 1619190361,
+    "last_content_update" : 1619190361,
+    "path" : "~/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/project_book/03-db_connection.Rmd",
+    "project_path" : "03-db_connection.Rmd",
+    "properties" : {
+        "cursorPosition" : "21,0",
+        "last_setup_crc32" : "FE7ABF85bb338d19",
+        "scrollLine" : "12"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -111,7 +111,7 @@
 
 \title{Term project draft}
 \author{Kipling Klimas}
-\date{2021-03-21}
+\date{2021-04-23}
 
 \begin{document}
 \maketitle
@@ -123,7 +123,9 @@
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
 
-Wildfires can have significant impacts on both ecosystems and human assets in forested environments. In the fire-prone mixed conifer/aspen forests of the Intermountain West (IW) fuel reduction treatments including stand thinning, mastication, aspen promotion and prescribed fire are implemented to reduce the risk, incidence and/or extent of destructive, high severity wildfire. Due to the high value of forested resources in the IW and the risk of post-fire sediment transport or debris flows downstream from burned areas, fuel reduction treatments are important landscape-scale tools that forest managers use to protect forest assets. However, the complex and pyrophytic nature of IW forests, along environmental and societal constraints, lends to barriers against spatially targeted implementation of fuel reduction treatments in high-value forested watersheds (Larson \& Churchill, 2012).
+Wildfires can have significant impacts on both ecosystems and human assets in forested environments.
+
+In the fire-prone mixed conifer/aspen forests of the Intermountain West (IW) fuel reduction treatments including stand thinning, mastication, aspen promotion and prescribed fire are implemented to reduce the risk, incidence and/or extent of destructive, high severity wildfire. Due to the high value of forested resources in the IW and the risk of post-fire sediment transport or debris flows downstream from burned areas, fuel reduction treatments are important landscape-scale tools that forest managers use to protect forest assets. However, the complex and pyrophytic nature of IW forests, along environmental and societal constraints, lends to barriers against spatially targeted implementation of fuel reduction treatments in high-value forested watersheds (Larson \& Churchill, 2012).
 
 Modeling the effect of fuel reduction treatments on fire behavior in fire-prone forests of the western United States has shown that targeted fuel reduction treatments are more effective at altering fire behavior (i.e.~rate of spread, flame length) than randomly or indiscriminately applied treatments (Kim et al., 2009; Minas et al., 2014; Prichard et al., 2020). The spatial distribution of treatments must then follow a prioritization hierarchy, such as concentrated, dispersed or regularly arranged treated areas within a forest (Kim et al., 2009), but the economic trade-off and efficacy of treatment distribution warrants greater examination in IW forests, where fuel treatments are applied to reduce the risk of high severity wildfire (Barros et al., 2019). By altering fire behavior through landscape-scale treatments, forest managers hope to reduce the extent of high-severity burned areas and mitigate downstream consequences of high-severity wildfire, such as the development of debris flows which can have negative impacts on high value assets such as reservoirs or fish habitat.
 
@@ -163,92 +165,330 @@ Connecting to the term\_project database
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{term_project <-}\StringTok{ }\KeywordTok{dbConnect}\NormalTok{(}\DataTypeTok{drv =}\NormalTok{ RSQLite}\OperatorTok{::}\KeywordTok{SQLite}\NormalTok{(),}
-                        \StringTok{"/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/databases/term_project.db"}\NormalTok{)}
+                        \StringTok{"C:/Users/A02345823/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Create trees table
+Create severity table
 Term project database creation based on structure in figure 1
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE trees(}
-\StringTok{tree_id integer PRIMARY KEY AUTOINCREMENT,}
-\StringTok{tree_number varchar(5),}
-\StringTok{plot_id float,}
-\StringTok{stand_id float,}
-\StringTok{tree_sp varchar(4),}
-\StringTok{dbh_cm float,}
-\StringTok{height_cm float, }
-\StringTok{cbh_cm float,}
-\StringTok{FOREIGN KEY(plot_id) REFERENCES plots(plot_id)}
-\StringTok{FOREIGN KEY(stand_id) REFERENCES stands(stand_id)}
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE severity(}
+\StringTok{severity_id integer NOT NULL PRIMARY KEY,}
+\StringTok{MTBSdNBR float,}
+\StringTok{severity float}
 \StringTok{);"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Create stands table
+Create forest behavior table
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE stands(}
-\StringTok{stand_id integer PRIMARY KEY AUTOINCREMENT,}
-\StringTok{stand_number varchar(5),}
-\StringTok{plot_id float,}
-\StringTok{ba_m_ha float,}
-\StringTok{cbd_kg_m3 float,}
-\StringTok{tpa float,}
-\StringTok{cc_percent float,}
-\StringTok{stand_density float, }
-\StringTok{FOREIGN KEY(plot_id) REFERENCES plots(plot_id)}
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE forest_behavior(}
+\StringTok{forest_behave_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{flmlnA float,}
+\StringTok{flmlnE float,}
+\StringTok{flmlnH float,}
+\StringTok{flmlnL float,}
+\StringTok{flmlnM float,}
+\StringTok{ftype_E float,}
+\StringTok{ftype_H float,}
+\StringTok{ftype_L float,}
+\StringTok{ftype_M float,}
+\StringTok{ros float,}
+\StringTok{rosE float,}
+\StringTok{rosH float,}
+\StringTok{rosL float,}
+\StringTok{rosM float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
 \StringTok{);"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Create fuels table
+Create forest risk table
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE fuels(}
-\StringTok{fuel_id integer PRIMARY KEY AUTOINCREMENT,}
-\StringTok{stand_id float,}
-\StringTok{plot_id float,}
-\StringTok{fuel_model varchar(6),}
-\StringTok{one_hr float,}
-\StringTok{ten_hr float,}
-\StringTok{hundred_hr float,}
-\StringTok{thousand_hr float,}
-\StringTok{coarse_wd float,}
-\StringTok{fine_wd float,}
-\StringTok{FOREIGN KEY(stand_id) REFERENCES stands(stand_id)}
-\StringTok{FOREIGN KEY(plot_id) REFERENCES plots(plot_id)}
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE forest_risk(}
+\StringTok{forest_risk_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{fri float,}
+\StringTok{fti float,}
+\StringTok{sdr varchar(12),}
+\StringTok{WHP float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
 \StringTok{);"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Create plots table
+Create forest\_structure table
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE plots(}
-\StringTok{plot_id integer PRIMARY KEY AUTOINCREMENT,}
-\StringTok{stand_id float,}
-\StringTok{fuel_id float,}
-\StringTok{plot_number float,}
-\StringTok{plot_area_m2 float,}
-\StringTok{date text,}
-\StringTok{utm_x float,}
-\StringTok{utm_y float,}
-\StringTok{elevation float,}
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE forest_structure(}
+\StringTok{str_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{wwacbd float,}
+\StringTok{wwacbh float,}
+\StringTok{wwacc float,}
+\StringTok{wwach float,}
+\StringTok{wwafuel13 float,}
+\StringTok{wwafuel40 float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create forest\_topo table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE forest_topo(}
+\StringTok{forest_topo_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{asp varchar(5),}
+\StringTok{dem float,}
 \StringTok{slope float,}
-\StringTok{aspect varchar(3),}
-\StringTok{county text,}
-\StringTok{ranger_district text,}
-\StringTok{FOREIGN KEY(stand_id) REFERENCES stands(stand_id)}
-\StringTok{FOREIGN KEY(fuel_id) REFERENCES fuels(fuel_id)}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
 \StringTok{);"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+Create forest\_veg table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE forest_veg(}
+\StringTok{forest_veg_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{EVT varchar(60),}
+\StringTok{SystGrp varchar(60),}
+\StringTok{SAFSrm varchar(60),}
+\StringTok{NVCSOrd varchar(16),}
+\StringTok{NVCSclass varchar(25),}
+\StringTok{NVCSsubclass varchar(40),}
+\StringTok{SYSTMGRPPH varchar(30),}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create non-forest db tables
+
+Create non-forest behavior table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE nf_behavior(}
+\StringTok{nf_behave_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{flmlnA float,}
+\StringTok{flmlnE float,}
+\StringTok{flmlnH float,}
+\StringTok{flmlnL float,}
+\StringTok{flmlnM float,}
+\StringTok{ftype_E float,}
+\StringTok{ftype_H float,}
+\StringTok{ftype_L float,}
+\StringTok{ftype_M float,}
+\StringTok{ros float,}
+\StringTok{rosE float,}
+\StringTok{rosH float,}
+\StringTok{rosL float,}
+\StringTok{rosM float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create non-forest risk table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE nf_risk(}
+\StringTok{nf_risk_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{fri float,}
+\StringTok{fti float,}
+\StringTok{sdr varchar(12),}
+\StringTok{WHP float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create non-forest\_structure table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE nf_structure(}
+\StringTok{nf_str_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{wwacbd float,}
+\StringTok{wwacbh float,}
+\StringTok{wwacc float,}
+\StringTok{wwach float,}
+\StringTok{wwafuel13 float,}
+\StringTok{wwafuel40 float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create non-forest\_topo table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE nf_topo(}
+\StringTok{nf_topo_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{asp varchar(5),}
+\StringTok{dem float,}
+\StringTok{slope float,}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Create non-forest\_veg table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dbExecute}\NormalTok{(term_project, }\StringTok{"CREATE TABLE nf_veg(}
+\StringTok{nf_veg_id integer NOT NULL PRIMARY KEY,}
+\StringTok{severity_id float,}
+\StringTok{EVT varchar(60),}
+\StringTok{SystGrp varchar(60),}
+\StringTok{SAFSrm varchar(60),}
+\StringTok{NVCSOrd varchar(16),}
+\StringTok{NVCSclass varchar(25),}
+\StringTok{NVCSsubclass varchar(40),}
+\StringTok{SYSTMGRPPH varchar(30),}
+\StringTok{FOREIGN KEY(severity_id) REFERENCES severity(severity_id)}
+\StringTok{);"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{SQL}{%
+\chapter{Database connection}\label{SQL}}
+
+Start
+
+Install package \texttt{RSQLite}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"RSQLite"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(RSQLite)}
+\end{Highlighting}
+\end{Shaded}
+
+Establish datebase connection and create tables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{severity_db <-}\StringTok{ }\KeywordTok{dbConnect}\NormalTok{(}\DataTypeTok{drv =}\NormalTok{ RSQLite}\OperatorTok{::}\KeywordTok{SQLite}\NormalTok{(),}
+                \StringTok{"/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db"}\NormalTok{)}
+
+\NormalTok{severity <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM severity;"}\NormalTok{)}
+\NormalTok{forest_behavior <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_behavior;"}\NormalTok{)}
+\NormalTok{forest_risk <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_risk;"}\NormalTok{)}
+\NormalTok{forest_structure <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_structure;"}\NormalTok{)}
+\NormalTok{forest_topo <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_topo;"}\NormalTok{)}
+\NormalTok{forest_veg <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_veg;"}\NormalTok{)}
+\NormalTok{nf_behavior <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_behavior;"}\NormalTok{)}
+\NormalTok{nf_risk <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_risk;"}\NormalTok{)}
+\NormalTok{nf_structure <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_structure;"}\NormalTok{)}
+\NormalTok{nf_topo <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_topo;"}\NormalTok{)}
+\NormalTok{nf_veg <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_veg;"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tidyverse}{%
+\chapter{Data visualization}\label{tidyverse}}
+
+Install packages \texttt{tidyverse} and \texttt{viridis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.1.1     v dplyr   1.0.5
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(viridis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: viridisLite
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RSQLite)}
+\KeywordTok{library}\NormalTok{(DBI)}
+\end{Highlighting}
+\end{Shaded}
+
+Connect to database `severity' and create tables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{severity_db <-}\StringTok{ }\KeywordTok{dbConnect}\NormalTok{(}\DataTypeTok{drv =}\NormalTok{ RSQLite}\OperatorTok{::}\KeywordTok{SQLite}\NormalTok{(),}
+                \StringTok{"/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db"}\NormalTok{)}
+
+\NormalTok{severity <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM severity;"}\NormalTok{)}
+\NormalTok{forest_behavior <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_behavior;"}\NormalTok{)}
+\NormalTok{forest_risk <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_risk;"}\NormalTok{)}
+\NormalTok{forest_structure <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_structure;"}\NormalTok{)}
+\NormalTok{forest_topo <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_topo;"}\NormalTok{)}
+\NormalTok{forest_veg <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM forest_veg;"}\NormalTok{)}
+\NormalTok{nf_behavior <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_behavior;"}\NormalTok{)}
+\NormalTok{nf_risk <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_risk;"}\NormalTok{)}
+\NormalTok{nf_structure <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_structure;"}\NormalTok{)}
+\NormalTok{nf_topo <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_topo;"}\NormalTok{)}
+\NormalTok{nf_veg <-}\StringTok{ }\KeywordTok{dbGetQuery}\NormalTok{(severity_db, }\StringTok{"SELECT * FROM nf_veg;"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This is fire severity dataset shows the relationship between severity measurements and a variety of predictive variables
+including topographic, vegetation, structural and derived risk indices.
+Data was differentiated between forest and non-forest points to compare severity relationships between forests and non-forest
+landcover systems.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forest_topo }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{left_join}\NormalTok{(severity, }\DataTypeTok{by =} \StringTok{"severity_id"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(dem, severity) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ dem, }\DataTypeTok{y =}\NormalTok{ severity)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{term_project_files/figure-latex/simple_plots-1.pdf}
 
 \bibliography{book.bib,packages.bib}
 

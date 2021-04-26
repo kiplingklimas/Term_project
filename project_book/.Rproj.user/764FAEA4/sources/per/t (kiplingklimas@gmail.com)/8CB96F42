@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1619277390208.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "2857364945",
+    "id" : "8CB96F42",
+    "lastKnownWriteTime" : 1616705909,
+    "last_content_update" : 1616705909,
+    "path" : "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/DEE8734C-1989-4061-BC15-9FE44329F9FB/practice.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

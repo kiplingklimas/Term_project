@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1616368953713.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "2474370466",
+    "id" : "F2E0118B",
+    "lastKnownWriteTime" : 1615241073,
+    "last_content_update" : 1615241073,
+    "path" : "~/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/term_project/01-data.Rmd",
+    "project_path" : "term_project/01-data.Rmd",
+    "properties" : {
+        "cursorPosition" : "9,157",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

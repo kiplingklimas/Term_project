@@ -1,0 +1,34 @@
+## Plot 1 
+
+# Make a boxplot of dragon total body length broken down by capture site. 
+# Include only adults and subadults. Overlay the raw data points to each boxplot 
+# (hint: check out geom_jitter()!). Add transparency to the points (value 0.5).
+# Each boxplot and its corresponding points should be a different color. Legend 
+# should be on the bottom. Axis labels and plot legend title should be as shown. 
+# Theme used: black and white.
+
+## Plot 2
+
+# For dragons that were GPS-tracked, calculate how long the monitoring period was
+# for each individual (in days) using lubridate. Then, make a density plot of 
+# GPS-tracking period durations broken down by age class where each density line 
+# appears staggered (hint: check out ggridges::geom_density_ridges; use scale = 8).
+# Make sure the age_class factor is ordered from Adult to Juvenile. Each density 
+# curve should be filled with a different color. Legend should not appear. Axis 
+# labels should be as shown. Theme used: minimal.
+
+## Plot 3
+
+# Make a scatterplot of tail length as a function of tarsus length using data for
+# adult dragons only. Give the points different colors and sizes according to 
+# total body length. Make sure you get only one legend in output (hint: check 
+# out this StackOverflow post: 
+# https://stackoverflow.com/questions/32649426/ggplot-combining-size-and-color-in-legend#:~:text=ggplot2%20can%20indeed%20combine%20size,they%20can%20not%20be%20combined.)).
+# Legend should appear at the bottom. Axis labels should be as shown. Theme 
+# used: minimal.
+
+## Plot 4
+
+# Combine the three plots above in a patchwork where the first two appear 
+# side-by-side at the bottom (with the boxplot on the left) and the third one on
+# the top. Use the viridis magma palette for all of them.

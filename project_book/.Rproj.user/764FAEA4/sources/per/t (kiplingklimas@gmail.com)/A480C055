@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1619371538253.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1141653032",
+    "id" : "A480C055",
+    "lastKnownWriteTime" : 1619113477,
+    "last_content_update" : 1619113477,
+    "path" : "~/Documents/PhD/Classes/WILD6900/assignment_11_dataviz-pt2_kiplingklimas/dataviz-challenge_pt2.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
