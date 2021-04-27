@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1619475135103.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "3260988474",
+    "id" : "9FEFBE96",
+    "lastKnownWriteTime" : 1619558938,
+    "last_content_update" : 1619558938700,
+    "path" : "~/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/project_book/04-data_visualization.Rmd",
+    "project_path" : "04-data_visualization.Rmd",
+    "properties" : {
+        "cursorPosition" : "65,0",
+        "scrollLine" : "49"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

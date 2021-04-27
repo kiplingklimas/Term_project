@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1619475933026.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "352361815",
+    "id" : "79205884",
+    "lastKnownWriteTime" : 1618534208,
+    "last_content_update" : 1618534208,
+    "path" : "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/0AD56C46-F515-4C50-9D7F-FD24A7880362/dataviz_class.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

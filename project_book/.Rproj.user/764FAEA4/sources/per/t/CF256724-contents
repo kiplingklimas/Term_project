@@ -1,0 +1,82 @@
+library(DBI)
+library(tidyverse)
+library(viridis)
+library(patchwork)
+# Plot 1 ####
+
+dragons_db <- dbConnect(drv = RSQLite::SQLite(),
+                        "/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/databases/dragons.db")
+
+dragons <- dbGetQuery(dragons_db, "SELECT * FROM dragons;")
+capture_sites <- dbGetQuery(dragons_db, "SELECT * FROM capture_sites;")
+captures <- dbGetQuery(dragons_db, "SELECT * FROM captures;")
+morphometrics <- dbGetQuery(dragons_db, "SELECT * FROM morphometrics;")
+diet <- dbGetQuery(dragons_db, "SELECT * FROM diet;")
+tags <- dbGetQuery(dragons_db, "SELECT * FROM tags;")
+deployments <- dbGetQuery(dragons_db, "SELECT * FROM deployments;")
+telemetry <- dbGetQuery(dragons_db, "SELECT * FROM gps_data;")
+
+# Make a barplot showing how many tags were deployed on dragons at each capture 
+# site. Each capture site should be filled with a different color. Theme used: 
+# light. Axis labels, legend title, and plot title should appear as shown. 
+
+dragons %>% 
+  left_join(deployments, by = "dragon_id") %>% 
+  left_join(captures, by = "dragon_id") %>% 
+  left_join(capture_sites, by = "site") %>% 
+  filter(!is.na(deployment_id)) %>% 
+  select(tag_id, site) %>% 
+  group_by(site) %>% 
+  tally() %>% 
+  
+  ggplot(aes(x = site, y = n, fill = site)) +
+    geom_bar(stat="identity") +
+    theme_light()
+
+
+# Plot 2 ####
+
+# I ran a regression modeling wingspan of adult and subadult dragons as a 
+# function of tarsus length and age class. Run the following code to get a 
+# data frame of the mean model predictions plus confidence intervals: 
+
+reg_data <- morphometrics %>% 
+  left_join(dragons) %>% 
+  filter(age_class %in% c("Subadult", "Adult"))
+
+reg <- lm(formula = wingspan_cm ~ tarsus_length_cm + age_class, data = reg_data)
+
+pred <- predict(reg, se.fit = TRUE)
+
+preds <- data.frame(mean = pred$fit,
+                    upr = pred$fit + 1.96 * pred$se.fit,
+                    lwr = pred$fit - 1.96 * pred$se.fit,
+                    age = reg_data$age_class)
+
+# Now make a plot of wingspan as a function of tarsus length broken down by age.
+# Plot the regression line, the confidence intervals ribbon, and the raw points
+# (hint: make sure you add the layers to the plot in the right order!) 
+# Data and regression line should be in different colors for the two age classes.
+# The ribbon should be light gray (use gray90). The legend should appear at the 
+# bottom. Theme used: light. Axis labels, legend title, and plot title should 
+# appear as shown.
+
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  filter(age_class %in% c("Subadult", "Adult")) %>% 
+  mutate(age_class = factor(age_class, levels = c("Subadult",
+                                                  "Adult"))) %>% 
+  ggplot(aes(x = tarsus_length_cm,
+                       y = wingspan_cm,
+                       color = age_class)) +
+  geom_ribbon(aes(ymin = preds$lwr, ymax = preds$upr), fill = "gray90") +  
+  geom_line(aes(y = preds$mean, color = preds$age)) +
+  geom_point() +
+  labs(y = "Wingspan (cm)", x = "Tarsus length (cm)",
+       color = "Age class",
+       title = "Wingspan vs. Tarsus length") +
+  theme_light() +
+  theme(legend.position = "bottom") 
+ 
+

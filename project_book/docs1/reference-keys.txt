@@ -1,3 +1,5 @@
 introduction
 data
 creation
+SQL
+tidyverse

@@ -1,7 +1,0 @@
-"0","severity_db <- dbConnect(drv = RSQLite::SQLite(),
-                        ""/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/
-                        Term_project/database/severity.db"")
-"
-"2","Error: Could not connect to database:
-unable to open database file
-"

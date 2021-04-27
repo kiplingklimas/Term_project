@@ -1,0 +1,496 @@
+library(tidyverse)
+library(DBI)
+library(viridis)
+library(patchwork)
+
+dragons_db <- dbConnect(RSQLite::SQLite(), "../../Course Material/Data/dragons/dragons.db")
+
+dragons <- dbGetQuery(dragons_db, "SELECT * FROM dragons;")
+capture_sites <- dbGetQuery(dragons_db, "SELECT * FROM capture_sites;")
+captures <- dbGetQuery(dragons_db, "SELECT * FROM captures;")
+morphometrics <- dbGetQuery(dragons_db, "SELECT * FROM morphometrics;")
+diet <- dbGetQuery(dragons_db, "SELECT * FROM diet;")
+tags <- dbGetQuery(dragons_db, "SELECT * FROM tags;")
+deployments <- dbGetQuery(dragons_db, "SELECT * FROM deployments;")
+telemetry <- dbGetQuery(dragons_db, "SELECT * FROM gps_data;")
+
+# Basic scatterplot ####
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) + 
+  geom_point()
+
+# Basic histogram ####
+
+ggplot(data = morphometrics,
+       mapping = aes(x = total_body_length_cm)) +
+  geom_histogram(bins = 80)
+
+# Basic density plot ####
+
+ggplot(data = morphometrics,
+       mapping = aes(x = total_body_length_cm)) +
+  geom_density() 
+
+# Customization 1: axis labels
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) + 
+  geom_point() +
+  labs(x = "Total body length (cm)", 
+       y = "Wingspan (cm)")
+
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) + 
+  geom_point() +
+  xlab("Total body length (cm)") +
+  ylab("Wingspan (cm)")
+
+# Customization 2: change colors ####
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) + 
+  geom_point(color = "dodgerblue") +
+  labs(x = "Total body length (cm)", 
+       y = "Wingspan (cm)")
+
+morph2 <- morphometrics %>% 
+  left_join(dragons, by = "dragon_id")
+
+ggplot(data = morph2,
+       mapping = aes(x = total_body_length_cm,
+                     y = wingspan_cm,
+                     color = age_class)) +
+  geom_point() +
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class")
+
+# I can just pipe data into the ggplot:
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  ggplot(mapping = aes(x = total_body_length_cm,
+                       y = wingspan_cm,
+                       color = age_class)) +
+  geom_point() + 
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class")
+
+# Customization 3: change names of legend categories ####
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  ggplot(mapping = aes(x = total_body_length_cm,
+                       y = wingspan_cm,
+                       color = age_class)) +
+  geom_point() + 
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class") +
+  scale_color_discrete(labels = c("Adult (> 3 years)",
+                                  "Juvenile (< 1 year)",
+                                  "Subadult (2-3 years)"))
+
+# Reorder factor levels 
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>% 
+  ggplot(aes(x = total_body_length_cm,
+                       y = wingspan_cm,
+                       color = age_class)) +
+  geom_point() +
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 2 years)",
+                                  "Subadult (2-3 years)",
+                                  "Adult (> 3 years)"))
+
+# Positional interpretation of arguments ####
+
+ggplot(morphometrics, aes(x = total_body_length_cm,
+                          y = wingspan_cm)) +
+  geom_point()
+
+ggplot(aes(x = total_body_length_cm,
+                          y = wingspan_cm), morphometrics) +
+  geom_point()
+
+ggplot(mapping = aes(x = total_body_length_cm,
+           y = wingspan_cm), data = morphometrics) +
+  geom_point()
+
+ggplot() +
+  geom_point(aes(x = total_body_length_cm, y = wingspan_cm), 
+             morphometrics)
+
+ggplot() +
+  geom_point(morphometrics, aes(x = total_body_length_cm, y = wingspan_cm))
+
+# Customization 4: change legend position ####
+
+# Reorder factor levels 
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>% 
+  ggplot(aes(x = total_body_length_cm,
+             y = wingspan_cm,
+             color = age_class)) +
+  geom_point() +
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 2 years)",
+                                  "Subadult (2-3 years)",
+                                  "Adult (> 3 years)")) +
+  theme(legend.position = "bottom",
+        legend.background = element_rect(fill = "gray90",
+                                         size = 0.5,
+                                         linetype = "solid",
+                                         color = "black"),
+        panel.grid.major = element_line(color = "white",
+                                        size = 1.5))
+
+
+my_theme <- theme(legend.position = "bottom",
+                    legend.background = element_rect(fill = "gray90",
+                                                     size = 0.5,
+                                                     linetype = "solid",
+                                                     color = "black"),
+                    panel.grid.major = element_line(color = "white",
+                                                    size = 1.5))
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>% 
+  ggplot(aes(x = total_body_length_cm,
+             y = wingspan_cm,
+             color = age_class)) +
+  geom_point() +
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 2 years)",
+                                  "Subadult (2-3 years)",
+                                  "Adult (> 3 years)")) +
+  my_theme
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>% 
+  ggplot(aes(x = total_body_length_cm,
+             y = wingspan_cm,
+             color = age_class)) +
+  geom_point() +
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 2 years)",
+                                  "Subadult (2-3 years)",
+                                  "Adult (> 3 years)")) +
+  theme_light() +
+  theme(legend.position = "bottom") +
+  NULL
+
+# Adding transparency ####
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>%
+  ggplot(aes(x = total_body_length_cm, y = wingspan_cm,
+             color = age_class)) +
+  geom_point(alpha = 0.4) +
+  labs(x = "Total body length (cm)", y = "Wingspan (cm)", color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 1 year)",
+                                  "Subadult (2-3) years",
+                                  "Adult (> 3 years)")) +
+  theme_light() +
+  theme(legend.position = "bottom")
+
+# Overlaying plots with different aesthetics ####
+
+reg <- lm(formula = wingspan_cm ~ total_body_length_cm,
+          data = morphometrics)
+
+coefs <- data.frame(int = reg$coefficients[1],
+                    slp = reg$coefficients[2], row.names = NULL)
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_point() +
+  geom_abline(data = coefs, mapping = aes(slope = slp, intercept = int))
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# Highlighting part of a plot with a box ####
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_point() +
+  geom_rect(aes(xmin = 0, ymin = 0, xmax = 500, ymax = 1000), color = "tomato",
+            fill = NA)
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_point() +
+  annotate("rect", xmin = 0, ymin = 0, xmax = 500, ymax = 1000, color = "tomato",
+            fill = "tomato", alpha = 0.2)
+
+# Modifying symbol appearance ####
+
+ggplot(data = morphometrics, 
+       mapping = aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_point(pch = 16) +
+  annotate("rect", xmin = 0, ymin = 0, xmax = 500, ymax = 1000, color = "tomato",
+           fill = "tomato", alpha = 0.2, lty = "dashed")
+
+# Fill vs color ####
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, levels = c("Juvenile",
+                                                  "Subadult",
+                                                  "Adult"))) %>% 
+  ggplot(aes(y = wingspan_cm, fill = age_class, x = age_class)) +
+  geom_boxplot() + 
+  labs(y = "Wingspan (cm)", fill = "Age class", x = " ") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Faceting ####
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>%
+  ggplot(aes(x = total_body_length_cm, y = wingspan_cm,
+             color = age_class)) +
+  geom_point() +
+  facet_wrap(~ species, nrow = 2) +
+  labs(x = "Total body length (cm)", y = "Wingspan (cm)", color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 1 year)",
+                                  "Subadult (2-3) years",
+                                  "Adult (> 3 years)")) +
+  theme_light() +
+  theme(legend.position = "bottom")
+
+# Change labels of facet panels ####
+
+species_labels <- c("Hebridean Black" = "HB",
+                    "Romanian Longhorn" = "RL",
+                    "Peruvian Vipertooth" = "PV",
+                    "Ukrainian Ironbelly" = "UI",
+                    "Norwegian Ridgeback" = "NR",
+                    "Common Welsh Green" = "CWG",
+                    "Swedish Short-Snout" = "SSS",
+                    "Chinese Fireball" = "CF",
+                    "Hungarian Horntail" = "HH",
+                    "Antipodean Opaleye" = "AO")
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>%
+  ggplot(aes(x = total_body_length_cm, y = wingspan_cm,
+             color = age_class)) +
+  geom_point() +
+  facet_wrap(~ species, nrow = 2, labeller = labeller(species_labels,
+                                                      species = species_labels)) +
+  labs(x = "Total body length (cm)", y = "Wingspan (cm)", color = "Age class") +
+  scale_color_discrete(labels = c("Juvenile (< 1 year)",
+                                  "Subadult (2-3) years",
+                                  "Adult (> 3 years)")) +
+  theme_light() +
+  theme(legend.position = "bottom")
+
+# Errorbars ####
+
+ggplot(diet, aes(x = item)) +
+  geom_bar(fill = "orange") +
+  labs(x = " ", y = "Count") +
+  theme_bw()
+
+# Count item for each species
+item_count <- diet %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(species, item) %>% 
+  tally()
+
+# Total number of diet samples per species
+tot_item <- diet %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  group_by(species) %>% 
+  tally()
+
+# Get relative freq
+item_count <- item_count %>% 
+  left_join(tot_item, by = "species") %>% 
+  mutate(rel_freq = n.x/n.y)
+
+# Calculate mean and sf for each item across species
+rf <- item_count %>% 
+  group_by(item) %>% 
+  summarize(mean_rf = mean(rel_freq), sd_rf = sd(rel_freq))
+
+# Add our error bars
+ggplot(rf, aes(x = item, y = mean_rf)) +
+  geom_col(fill = "orange") +
+  geom_errorbar(aes(ymin = mean_rf - sd_rf,
+                    ymax = mean_rf + sd_rf),
+                width = 0.5,
+                color = "orange") + 
+  labs(x = " ", y = "Count") +
+  theme_bw()
+
+# Plot model predictions with uncertainty ####
+
+mod_pred <- predict(reg, se.fit = TRUE)
+
+preds <- data.frame(mean = mod_pred$fit,
+                    upr = mod_pred$fit + 1.96 * mod_pred$se.fit,
+                    lwr = mod_pred$fit - 1.96 * mod_pred$se.fit)
+
+ggplot(morphometrics, aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_ribbon(aes(ymin = preds$lwr, ymax = preds$upr), fill = "gray90") +
+  geom_point() +
+  geom_line(aes(y = preds$mean)) +
+  theme_bw()
+
+
+# How to plot ordered observations ####
+
+telemetry %>% 
+  ggplot(aes(x = utm_x, y = utm_y, color = dragon_id)) +
+  geom_path() +
+  theme(legend.position = "none")
+
+# Make colorblind-friendly plots ####
+
+telemetry %>% 
+  ggplot(aes(x = utm_x, y = utm_y, color = dragon_id)) +
+  geom_path() +
+  labs(x = "UTM Easting", y = "UTM Northing") +
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  scale_color_viridis_d(option = "plasma")
+
+morphometrics %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Juvenile",
+                                        "Subadult",
+                                        "Adult"))) %>% 
+  ggplot(aes(x = total_body_length_cm,
+             y = wingspan_cm,
+             color = total_body_length_cm)) +
+  geom_point() +
+  labs(x = "Total body length (cm)",
+       y = "Wingspan (cm)",
+       color = "Total body length (cm)") +
+  scale_color_viridis_c() +
+  theme_minimal() 
+
+# Arrange multiple plots with patchwork ####
+
+p1 <- ggplot(rf, aes(x = item, y = mean_rf)) +
+  geom_col(fill = "orange") +
+  geom_errorbar(aes(ymin = mean_rf - sd_rf,
+                    ymax = mean_rf + sd_rf),
+                width = 0.5,
+                color = "orange") + 
+  labs(x = " ", y = "Count") +
+  theme_bw() 
+
+p2 <- ggplot(morphometrics, aes(x = total_body_length_cm, y = wingspan_cm)) +
+  geom_ribbon(aes(ymin = preds$lwr, ymax = preds$upr), fill = "gray90") +
+  geom_point(color = "darkmagenta") +
+  geom_line(aes(y = preds$mean), color = "darkmagenta") +
+  theme_bw()
+
+p3 <- telemetry %>% 
+  ggplot(aes(x = utm_x, y = utm_y, color = dragon_id)) +
+  geom_path() +
+  labs(x = "UTM Easting", y = "UTM Northing") +
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  scale_color_viridis_d(option = "plasma")
+
+# Side by side
+p1 + p2 + p3 + plot_layout(nrow = 2, guides = "collect") & 
+  theme(legend.position = "bottom")
+p1 + p2 + p3
+p1 | p2 | p3
+
+# Stacked vertically
+p1 / p2 / p3
+
+# Other layouts
+(p1 / p2) | p3
+(p1 | p2) / p3
+
+p4 <- ggplot(data = morphometrics,
+             mapping = aes(x = total_body_length_cm)) +
+  geom_histogram(bins = 80, fill = "darkmagenta") +
+  theme_minimal()
+
+p1 + p2 + p3 + plot_annotation(tag_levels = "A")
+
+(p1 | p2) / p3 + plot_annotation(tag_levels = "A", 
+                                 tag_prefix = "Figure ",
+                                 tag_suffix = ":")
+
+patchwork1 <- (p1 | p2) / p3 + plot_annotation(tag_levels = "A") +
+  plot_layout(heights = c(1, 2))
+
+layout1 <- "
+#A#
+BCD
+"
+
+p1 + p2 + p3 + p4 + plot_layout(design = layout1)
+
+# Save plots
+
+# Option 1: assign your plot to an object and specify which object
+# you're saving
+ggsave(plot = patchwork1,
+       filename = "output/patchwork1.tiff",
+       compression = "lzw", 
+       width = 6,
+       height = 8,
+       units = "in",
+       dpi = 300,
+       scale = 2)
+
+# Option 2: last plot displayed is the one that gets saved
+ggsave(filename = "output/patchwork1.tiff",
+       compression = "lzw", 
+       width = 6,
+       height = 8,
+       units = "in",
+       dpi = 300,
+       scale = 2)
