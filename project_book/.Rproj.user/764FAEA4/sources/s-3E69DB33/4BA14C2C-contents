@@ -1,0 +1,110 @@
+library(tidyverse)
+library(lubridate)
+library(viridis)
+library(RSQLite)
+library(patchwork)
+
+dragons_db <- dbConnect(drv = RSQLite::SQLite(),
+                       "/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/databases/dragons.db")
+
+dragons <- dbGetQuery(dragons_db, "SELECT * FROM dragons;")
+capture_sites <- dbGetQuery(dragons_db, "SELECT * FROM capture_sites;")
+captures <- dbGetQuery(dragons_db, "SELECT * FROM captures;")
+morphometrics <- dbGetQuery(dragons_db, "SELECT * FROM morphometrics;")
+diet <- dbGetQuery(dragons_db, "SELECT * FROM diet;")
+tags <- dbGetQuery(dragons_db, "SELECT * FROM tags;")
+deployments <- dbGetQuery(dragons_db, "SELECT * FROM deployments;")
+telemetry <- dbGetQuery(dragons_db, "SELECT * FROM gps_data;")
+
+## Plot 1 
+
+# Make a boxplot of dragon total body length broken down by capture site. 
+# Include only adults and subadults. Overlay the raw data points to each boxplot 
+# (hint: check out geom_jitter()!). Add transparency to the points (value 0.5).
+# Each boxplot and its corresponding points should be a different color. Legend 
+# should be on the bottom. Axis labels and plot legend title should be as shown. 
+# Theme used: black and white.
+
+uno <- morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  left_join(captures, by = "dragon_id") %>%
+  mutate(site = factor(site, levels  = c("DLT",
+                                        "LOG",
+                                        "MOA",
+                                        "SLC",
+                                        "STG"))) %>% 
+  filter(age_class %in% c("Adult", "Subadult")) %>% 
+  ggplot(aes(x = site, y = total_body_length_cm,
+         color = site)) +
+  geom_boxplot() +
+  labs(x = "Site", y = "Total body length (cm)") +
+  geom_jitter(alpha = 0.5) +
+  theme_bw() +
+  scale_color_viridis_d(option = "magma") +
+  theme(legend.position = "bottom")
+uno
+
+## Plot 2
+
+# For dragons that were GPS-tracked, calculate how long the monitoring period was
+# for each individual (in days) using lubridate. Then, make a density plot of 
+# GPS-tracking period durations broken down by age class where each density line 
+# appears staggered (hint: check out ggridges::geom_density_ridges; use scale = 8).
+# Make sure the age_class factor is ordered from Adult to Juvenile. Each density 
+# curve should be filled with a different color. Legend should not appear. Axis 
+# labels should be as shown. Theme used: minimal.
+
+dos <- deployments %>% 
+  as_tibble() %>% 
+  mutate(start_deployment = ymd(start_deployment),
+         end_deployment = ymd(end_deployment)) %>% 
+  mutate(deployment_period = end_deployment - start_deployment) %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  mutate(age_class = factor(age_class, 
+                            levels  = c("Adult",
+                                        "Subadult",
+                                        "Juvenile"))) %>% 
+  ggplot(aes(y = age_class, x = deployment_period, fill = age_class)) +
+  ggridges::geom_density_ridges(scale = 8, alpha = 1, show.legend = FALSE) +
+  labs(y = " ", x = "Deployment length (days)") +
+  scale_fill_viridis_d(option = "magma") +
+  theme_minimal() 
+  
+dos
+## Plot 3
+
+# Make a scatterplot of tail length as a function of tarsus length using data for
+# adult dragons only. Give the points different colors and sizes according to 
+# total body length. Make sure you get only one legend in output (hint: check 
+# out this StackOverflow post: 
+# https://stackoverflow.com/questions/32649426/ggplot-combining-size-and-color-in-legend#:~:text=ggplot2%20can%20indeed%20combine%20size,they%20can%20not%20be%20combined.)).
+# Legend should appear at the bottom. Axis labels should be as shown. Theme 
+# used: minimal.
+
+tres <- morphometrics %>% 
+  as_tibble() %>% 
+  left_join(dragons, by = "dragon_id") %>% 
+  filter(age_class == "Adult") %>% 
+  ggplot(aes(x = tarsus_length_cm, y = tail_length_cm, 
+             color = total_body_length_cm, 
+             cex = total_body_length_cm)) +
+  geom_point() +
+  scale_size_continuous(limits=c(500, 2000), breaks=seq(500, 2000, by=500), 
+                        name = "Total body length (cm)") +
+  guides(color= guide_legend(), size=guide_legend()) + 
+  labs(x = "Tarsus length (cm)", y = "Tail length (cm)", 
+       color = "Total body length (cm)" ) +
+  theme_minimal() +
+  scale_color_viridis_c(option = "magma") +
+  theme(legend.position = "bottom") 
+tres
+## Plot 4
+
+# Combine the three plots above in a patchwork where the first two appear 
+# side-by-side at the bottom (with the boxplot on the left) and the third one on
+# the top. Use the viridis magma palette for all of them.
+
+combine <- tres / (uno + dos)
+combine
+

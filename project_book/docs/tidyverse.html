@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data visualization | Term project draft</title>
+  <meta name="description" content="This is the term project for WILD6900 spring 2021." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data visualization | Term project draft" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the term project for WILD6900 spring 2021." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data visualization | Term project draft" />
+  
+  <meta name="twitter:description" content="This is the term project for WILD6900 spring 2021." />
+  
+
+<meta name="author" content="Kipling Klimas" />
+
+
+<meta name="date" content="2021-04-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="SQL.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data description and database structure</a></li>
+<li class="chapter" data-level="3" data-path="creation.html"><a href="creation.html"><i class="fa fa-check"></i><b>3</b> Database creation</a></li>
+<li class="chapter" data-level="4" data-path="SQL.html"><a href="SQL.html"><i class="fa fa-check"></i><b>4</b> Database connection</a></li>
+<li class="chapter" data-level="5" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>5</b> Data visualization</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Term project draft</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidyverse" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Data visualization</h1>
+<p>Install packages <code>tidyverse</code> and <code>viridis</code></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.1     ✓ dplyr   1.0.5
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">library</span>(viridis)</a></code></pre></div>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">library</span>(RSQLite)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">library</span>(DBI)</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">library</span>(ggridges)</a></code></pre></div>
+<p>Connect to database ‘severity’ and create tables</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">severity_db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="dt">drv =</span> RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">                <span class="st">&quot;/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db&quot;</span>)</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">severity &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM severity;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">forest_behavior &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM forest_behavior;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">forest_risk &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM forest_risk;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">forest_structure &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM forest_structure;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">forest_topo &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM forest_topo;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">forest_veg &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM forest_veg;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">nf_behavior &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM nf_behavior;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">nf_risk &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM nf_risk;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-12" data-line-number="12">nf_structure &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM nf_structure;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-13" data-line-number="13">nf_topo &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM nf_topo;&quot;</span>)</a>
+<a class="sourceLine" id="cb23-14" data-line-number="14">nf_veg &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(severity_db, <span class="st">&quot;SELECT * FROM nf_veg;&quot;</span>)</a></code></pre></div>
+<p>This is fire severity dataset shows the relationship between severity measurements and a variety of predictive variables
+including topographic, vegetation, structural and derived risk indices.
+Data was differentiated between forest and non-forest points to compare severity relationships between forests and non-forest
+landcover systems.</p>
+<p>Simple scatter plot of forest severity by elevation (m)</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">sev &lt;-<span class="st"> </span>forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(dem, severity)</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">reg &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula=</span> severity <span class="op">~</span><span class="st"> </span>dem, <span class="dt">data =</span> sev)</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">regs &lt;-<span class="st"> </span><span class="kw">predict</span>(reg, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7">regs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">mean =</span> regs<span class="op">$</span>fit,</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">                    <span class="dt">upr =</span> regs<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>regs<span class="op">$</span>se.fit,</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9">                    <span class="dt">lwr =</span> regs<span class="op">$</span>fit <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>regs<span class="op">$</span>se.fit)</a>
+<a class="sourceLine" id="cb24-10" data-line-number="10">            </a>
+<a class="sourceLine" id="cb24-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb24-12" data-line-number="12">forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-13" data-line-number="13"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"><span class="st">  </span><span class="kw">select</span>(dem, severity) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity, <span class="dt">color=</span> dem)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> regs<span class="op">$</span>mean, <span class="dt">color =</span> regs<span class="op">$</span>mean)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-19" data-line-number="19"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Elevation (m)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="st">  </span><span class="kw">theme_light</span>() </a></code></pre></div>
+<p><img src="term_project_files/figure-html/simple_plots-1.png" width="672" /></p>
+<p>Density curves of fire type extreme by severity</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">forest_behavior <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ftypeE =</span> <span class="kw">case_when</span>(</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;Surface&quot;</span>,</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">~</span><span class="st"> &quot;Passive&quot;</span>,</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">5</span> <span class="op">~</span><span class="st"> &quot;Passive&quot;</span>,</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">6</span> <span class="op">~</span><span class="st"> &quot;Active&quot;</span>,</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">7</span> <span class="op">~</span><span class="st"> &quot;Active&quot;</span>,</a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">  )) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ftypeE, <span class="dt">x =</span> severity, <span class="dt">fill =</span> ftypeE)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="st">  </span>ggridges<span class="op">::</span><span class="kw">geom_density_ridges</span>(<span class="dt">scale =</span> <span class="dv">8</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))  <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Severity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="st">  </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<pre><code>## Picking joint bandwidth of 29.2</code></pre>
+<p><img src="term_project_files/figure-html/fire_behavior-1.png" width="672" /></p>
+<p>Bar plot of canopy categories</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">forest_veg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(severity_id)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> NVCSsubclass, <span class="dt">y =</span> severity)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Vegetation type&quot;</span>) </a></code></pre></div>
+<p><img src="term_project_files/figure-html/fbarplot-1.png" width="672" /></p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="SQL.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["term_project.pdf", "term_project.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
