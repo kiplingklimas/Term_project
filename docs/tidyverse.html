@@ -208,12 +208,12 @@ landcover systems.</p>
 <a class="sourceLine" id="cb24-12" data-line-number="12">forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb24-13" data-line-number="13"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb24-14" data-line-number="14"><span class="st">  </span><span class="kw">select</span>(dem, severity) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="st">  </span><span class="co">#geom_ribbon(aes(ymin = regs$lwr, ymax = regs$upr), fill = &quot;gray90&quot;) +  </span></a>
-<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> regs<span class="op">$</span>mean)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity, <span class="dt">color=</span> dem)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> regs<span class="op">$</span>mean, <span class="dt">color =</span> regs<span class="op">$</span>mean)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb24-19" data-line-number="19"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Elevation (m)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="st">  </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb24-20" data-line-number="20"><span class="st">  </span><span class="kw">theme_light</span>() </a></code></pre></div>
 <p><img src="term_project_files/figure-html/simple_plots-1.png" width="672" /></p>
 <p>Density curves of fire type extreme by severity</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">forest_behavior <span class="op">%&gt;%</span><span class="st"> </span></a>

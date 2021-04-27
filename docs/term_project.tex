@@ -497,12 +497,12 @@ Simple scatter plot of forest severity by elevation (m)
 \NormalTok{forest_topo }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{left_join}\NormalTok{(severity, }\DataTypeTok{by =} \StringTok{"severity_id"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{select}\NormalTok{(dem, severity) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ dem, }\DataTypeTok{y =}\NormalTok{ severity)) }\OperatorTok{+}
-\StringTok{  }\CommentTok{#geom_ribbon(aes(ymin = regs$lwr, ymax = regs$upr), fill = "gray90") +  }
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ regs}\OperatorTok{$}\NormalTok{mean)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ dem, }\DataTypeTok{y =}\NormalTok{ severity, }\DataTypeTok{color=}\NormalTok{ dem)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_viridis_c}\NormalTok{(}\DataTypeTok{option =} \StringTok{"magma"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ regs}\OperatorTok{$}\NormalTok{mean, }\DataTypeTok{color =}\NormalTok{ regs}\OperatorTok{$}\NormalTok{mean)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{"Severity (dNBR)"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Elevation (m)"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
