@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "ISO8859-1",
     "folds" : "",
-    "hash" : "1139694702",
+    "hash" : "0",
     "id" : "A449F00B",
-    "lastKnownWriteTime" : 1618351187,
-    "last_content_update" : 1618351187,
-    "path" : "~/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/project_book/index.Rmd",
+    "lastKnownWriteTime" : 1619795010,
+    "last_content_update" : 1619795010962,
+    "path" : "~/Documents/PhD/Classes/WILD6900/Term_project/Term_project/project_book/index.Rmd",
     "project_path" : "index.Rmd",
     "properties" : {
+        "cursorPosition" : "36,43",
+        "scrollLine" : "18"
     },
     "read_only" : false,
     "read_only_alternatives" : [

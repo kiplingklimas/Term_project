@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "ISO8859-1",
     "folds" : "",
-    "hash" : "3457885775",
+    "hash" : "1201719274",
     "id" : "9FEFBE96",
-    "lastKnownWriteTime" : 1619561085,
-    "last_content_update" : 1619561085942,
-    "path" : "~/Documents/PhD/Classes/WILD6900/Term_project/Term_project/project_book/04-data_visualization.Rmd",
-    "project_path" : "04-data_visualization.Rmd",
+    "lastKnownWriteTime" : 1619795862,
+    "last_content_update" : 1619795862,
+    "path" : "~/Documents/PhD/Classes/WILD6900/Term_project/Term_project/project_book/04-forest_data_visualization.Rmd",
+    "project_path" : "04-forest_data_visualization.Rmd",
     "properties" : {
-        "cursorPosition" : "66,0",
-        "scrollLine" : "67"
+        "cursorPosition" : "7,54",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [

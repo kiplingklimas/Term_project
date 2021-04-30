@@ -1,0 +1,140 @@
+# Non-forest data visualization {#ggplot}
+
+
+```{r nf_begin, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load packages 
+
+```{r nf_load_packages, eval = TRUE, echo = FALSE}
+library(tidyverse)
+library(viridis)
+library(RSQLite)
+library(DBI)
+library(ggridges)
+```
+
+
+```{r nf_connection, eval=TRUE, echo=FALSE}
+severity_db <- dbConnect(drv = RSQLite::SQLite(),
+                "/Users/kiplingklimas/Box/Lab_Group/Kipling/Classes/WILD6900_EcoRepSci/Term_project/Term_project/database/severity.db")
+
+severity <- dbGetQuery(severity_db, "SELECT * FROM severity;")
+nf_behavior <- dbGetQuery(severity_db, "SELECT * FROM nf_behavior;")
+nf_risk <- dbGetQuery(severity_db, "SELECT * FROM nf_risk;")
+nf_structure <- dbGetQuery(severity_db, "SELECT * FROM nf_structure;")
+nf_topo <- dbGetQuery(severity_db, "SELECT * FROM nf_topo;")
+nf_veg <- dbGetQuery(severity_db, "SELECT * FROM nf_veg;")
+```
+
+
+Simple scatter plot of non-forest severity vs. elevation (m)
+
+
+```{r nf_scatterplot, eval=TRUE, echo=TRUE}
+sev <- nf_topo %>% 
+  left_join(severity, by = "severity_id") %>% 
+  select(dem, severity)
+
+reg <- lm(formula= severity ~ dem, data = sev)
+regs <- predict(reg, se.fit = TRUE)
+regs <- data.frame(mean = regs$fit,
+                    upr = regs$fit + 1.96 * regs$se.fit,
+                    lwr = regs$fit - 1.96 * regs$se.fit)
+            
+
+nf_topo %>% 
+  left_join(severity, by = "severity_id") %>% 
+  select(dem, severity) %>% 
+  ggplot(aes(x = dem, y = severity, color= dem)) +
+  geom_point(alpha = 0.5) +
+  scale_color_viridis_c(option = "magma") +
+  geom_line(aes(y = regs$mean, color = regs$mean)) +
+  labs(y = "Severity (dNBR)", x = "Elevation (m)") +
+  theme_light() 
+  
+
+```
+
+
+```{r nf_barplot, eval=TRUE, echo=TRUE}
+nf_veg %>% 
+  left_join(severity, by = "severity_id") %>% 
+  filter(!is.na(severity_id)) %>% 
+  ggplot(aes(x = NVCSsubclass, y = severity)) +
+  geom_boxplot() +
+  labs(y = "Severity (dNBR)", x = "Canopy type") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+Bar plot of non-forest canopy categories.
+
+```{r nf_risk_elevation, eval=TRUE, echo=TRUE}
+nf_topo %>% 
+  left_join(severity, by = "severity_id") %>% 
+  left_join(nf_risk, by = "severity_id") %>% 
+  select(dem, fri, severity) %>% 
+  ggplot(aes(x = dem, y = severity, color = fri)) +
+  geom_point(alpha = 0.5) +
+  scale_color_viridis_c(option = "magma") +
+  labs(y = "Severity (dNBR)", x = "Elevation (m)") +
+  theme_light() 
+  
+```
+
+Elevation x severity x fire risk index
+
+```{r nf_cc_elevation, eval=TRUE, echo=TRUE}
+nf_topo %>% 
+  left_join(severity, by = "severity_id") %>% 
+  left_join(nf_structure, by = "severity_id") %>% 
+  ggplot(aes(x = dem, y = severity, color = wwacc)) +
+  geom_point(alpha = 0.5) +
+  scale_color_viridis_c(option = "magma") +
+  labs(y = "Severity (dNBR)", x = "Elevation (m)") +
+  theme_light() 
+
+```
+
+Elevation x severity x canopy closure. This figures illustrates that non-forest landcover has no discernable canopy. 
+
+```{r nf_fuels_elevation, eval=TRUE, echo=TRUE}
+nf_topo %>% 
+  left_join(severity, by = "severity_id") %>% 
+  left_join(nf_structure, by = "severity_id") %>% 
+  ggplot(aes(x = dem, y = severity, color = wwafuel40)) +
+  geom_point(alpha = 0.5) +
+  scale_color_viridis_c(option = "magma") +
+  labs(y = "Severity (dNBR)", x = "Elevation (m)") +
+  theme_light()
+
+```
+
+Elevation x severity x fuels40
+
+Mean severity by vegetation type
+
+``` {r nf_vegtype, eval = TRUE, echo = TRUE}
+nf_veg %>% 
+  pull(EVT) %>% 
+  unique()
+```
+
+Lets check out the mean severity for each of these forest types. 
+The red dashed line is the high-severity threshold. 
+
+```{r nf_vegtype_mean_sev, eval = TRUE, echo = TRUE}
+nf_veg %>% 
+  left_join(severity, by = "severity_id") %>% 
+  group_by(EVT) %>% 
+  summarise(mean_severity = mean(severity, na.rm = TRUE)) %>% 
+  ggplot(aes(x = EVT, y = mean_severity)) +
+  geom_hline(yintercept = 450, linetype = "dashed", color = "red") +
+  geom_bar(stat = "identity") +
+  labs(x = " ", y = "Mean severity") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1)) 
+  
+```

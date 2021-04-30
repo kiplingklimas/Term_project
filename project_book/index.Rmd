@@ -12,11 +12,37 @@ description: "This is the term project for WILD6900 spring 2021."
 
 # Introduction
 
-Wildfires can have significant impacts on both ecosystems and human assets in forested environments. 
+This project is focused on the relationship between a variety of environmental, topographic and derived variables and burn severity data for forest and non-forest environments in Utah.  
 
-In the fire-prone mixed conifer/aspen forests of the Intermountain West (IW) fuel reduction treatments including stand thinning, mastication, aspen promotion and prescribed fire are implemented to reduce the risk, incidence and/or extent of destructive, high severity wildfire. Due to the high value of forested resources in the IW and the risk of post-fire sediment transport or debris flows downstream from burned areas, fuel reduction treatments are important landscape-scale tools that forest managers use to protect forest assets. However, the complex and pyrophytic nature of IW forests, along environmental and societal constraints, lends to barriers against spatially targeted implementation of fuel reduction treatments in high-value forested watersheds (Larson & Churchill, 2012). 
+Burn severity is a measure of ecological change after wildfire, commonly assessed in terms of vegetation mortality or biomass loss,
+and is burn severity data is easily collected through remote sensing. Burn severity data is available from the The Monitoring Trends in Burn Severity (MTBS) databas, which containes burn severity data for wildfires >1000 acres across the continental US. 
+These data are available in the form of spatially explicit raster layers with continuous and categorical burn severity layers. 
 
-Modeling the effect of fuel reduction treatments on fire behavior in fire-prone forests of the western United States has shown that targeted fuel reduction treatments are more effective at altering fire behavior (i.e. rate of spread, flame length) than randomly or indiscriminately applied treatments (Kim et al., 2009; Minas et al., 2014; Prichard et al., 2020). The spatial distribution of treatments must then follow a prioritization hierarchy, such as concentrated, dispersed or regularly arranged treated areas within a forest (Kim et al., 2009), but the economic trade-off and efficacy of treatment distribution warrants greater examination in IW forests, where fuel treatments are applied to reduce the risk of high severity wildfire (Barros et al., 2019). By altering fire behavior through landscape-scale treatments, forest managers hope to reduce the extent of high-severity burned areas and mitigate downstream consequences of high-severity wildfire, such as the development of debris flows which can have negative impacts on high value assets such as reservoirs or fish habitat.
+The database used in this project contains fire behavior, structure, topographic, risk and vegetation 'predictor' variables for both
+forest and non-forest land along with burn severity data. 
+
+## Project goals
+
+The specific goal of this project is to vizualize the relationship between burn severity and a variety of environmental variables in forest and non-forest enviornments. This includes creating plots that show:
+
+1. Burn severity vs. elevation
+2. Burn severity vs. canopy categories
+3. Burn severity vs. Vegetation type
+4. Burn severity vs. elevation with risk and canopy variables overlayed
+
+## Project outline
+
+The book is composed of the following chapters:
+
+* Chapter 1: data description and structure
+* Chapter 2: database creation
+* Chapter 3: database connection'
+* Chapter 4: forest data visualization 
+* Chapter 5: non-forest data visualization
+
+
+
+
 
 
 ```{r include=FALSE}

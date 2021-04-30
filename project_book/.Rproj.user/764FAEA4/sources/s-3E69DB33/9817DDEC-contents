@@ -32,3 +32,8 @@ nf_structure <- dbGetQuery(severity_db, "SELECT * FROM nf_structure;")
 nf_topo <- dbGetQuery(severity_db, "SELECT * FROM nf_topo;")
 nf_veg <- dbGetQuery(severity_db, "SELECT * FROM nf_veg;")
 ```
+
+This is fire severity dataset shows the relationship between severity measurements and a variety of predictive variables
+including topographic, vegetation, structural and derived risk indices. 
+Data was differentiated between forest and non-forest points to compare severity relationships between forests and non-forest 
+landcover systems. 

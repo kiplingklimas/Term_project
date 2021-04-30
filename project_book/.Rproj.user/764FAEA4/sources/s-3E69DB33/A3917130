@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1619794531867.000,
+    "dirty" : false,
+    "encoding" : "ISO8859-1",
+    "folds" : "",
+    "hash" : "1335370286",
+    "id" : "A3917130",
+    "lastKnownWriteTime" : 1619795881,
+    "last_content_update" : 1619795881031,
+    "path" : "~/Documents/PhD/Classes/WILD6900/Term_project/Term_project/project_book/05-non-forest_data_visualization.Rmd",
+    "project_path" : "05-non-forest_data_visualization.Rmd",
+    "properties" : {
+        "cursorPosition" : "7,4",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

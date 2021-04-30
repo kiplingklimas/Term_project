@@ -1,14 +1,12 @@
 # Data description and database structure {#data}
 
-Forest strcuture and fuels data are needed to model fire behavior and predict burn severity spatially. 
+Forest strcuture, topographic, and environmental variables are needed to create a machine learning model training dataset. 
 
 ```{r fig, echo=FALSE, fig.align='center', crop=NULL}
 knitr::include_graphics("db_structure.png")
 ```
-Figure 1: databse structure for forest and fuels inventory.
+Figure 1: databse structure for fire severity databse.
 
-This database structure is compatible with tree and stand level forest simulation software such as the Forest Vegetation Simulator (FVS) which can be used to model forest structure over time. An advantage of this approach and structure is these data allow detailed simulation of mortality during fire. 
+This database contains tables for fire behavior, risk, topographic, vegetation and structural variables extracted from spatially explicit raster data layers for use as a training dataset in RandomForest (RF) models. 
 
-Tree level data are related to plot polygons that allow for stand-level simulation. Fuels data is required for modeled fire behavior, such as flame length, rate or spread or fire type (surface, passive or active).
-
-Whether or not these tables become populated remains to be seen- a disadvantage of this approach is that fuel reduction treatments are not readily applied to the landscape in question. It is also only useable for fire behavior modeling as an ArcMap toolbar extension. 
+The tables are linked to the severity table by the foreign key 'severity_id' which keeps track of both forest and non-forest severity datapoints. This database structure also allows data visualization between forest and non-forest landcover in Utah. 
