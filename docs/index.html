@@ -24,7 +24,7 @@
 <meta name="author" content="Kipling Klimas" />
 
 
-<meta name="date" content="2021-04-27" />
+<meta name="date" content="2021-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -131,11 +131,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-goals"><i class="fa fa-check"></i><b>1.1</b> Project goals</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#project-outline"><i class="fa fa-check"></i><b>1.2</b> Project outline</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data description and database structure</a></li>
 <li class="chapter" data-level="3" data-path="creation.html"><a href="creation.html"><i class="fa fa-check"></i><b>3</b> Database creation</a></li>
 <li class="chapter" data-level="4" data-path="SQL.html"><a href="SQL.html"><i class="fa fa-check"></i><b>4</b> Database connection</a></li>
-<li class="chapter" data-level="5" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>5</b> Data visualization</a></li>
+<li class="chapter" data-level="5" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>5</b> Forest data visualization</a></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Non-forest data visualization</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -160,14 +164,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Term project draft</h1>
 <p class="author"><em>Kipling Klimas</em></p>
-<p class="date"><em>2021-04-27</em></p>
+<p class="date"><em>2021-04-30</em></p>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>Wildfires can have significant impacts on both ecosystems and human assets in forested environments.</p>
-<p>In the fire-prone mixed conifer/aspen forests of the Intermountain West (IW) fuel reduction treatments including stand thinning, mastication, aspen promotion and prescribed fire are implemented to reduce the risk, incidence and/or extent of destructive, high severity wildfire. Due to the high value of forested resources in the IW and the risk of post-fire sediment transport or debris flows downstream from burned areas, fuel reduction treatments are important landscape-scale tools that forest managers use to protect forest assets. However, the complex and pyrophytic nature of IW forests, along environmental and societal constraints, lends to barriers against spatially targeted implementation of fuel reduction treatments in high-value forested watersheds (Larson &amp; Churchill, 2012).</p>
-<p>Modeling the effect of fuel reduction treatments on fire behavior in fire-prone forests of the western United States has shown that targeted fuel reduction treatments are more effective at altering fire behavior (i.e. rate of spread, flame length) than randomly or indiscriminately applied treatments (Kim et al., 2009; Minas et al., 2014; Prichard et al., 2020). The spatial distribution of treatments must then follow a prioritization hierarchy, such as concentrated, dispersed or regularly arranged treated areas within a forest (Kim et al., 2009), but the economic trade-off and efficacy of treatment distribution warrants greater examination in IW forests, where fuel treatments are applied to reduce the risk of high severity wildfire (Barros et al., 2019). By altering fire behavior through landscape-scale treatments, forest managers hope to reduce the extent of high-severity burned areas and mitigate downstream consequences of high-severity wildfire, such as the development of debris flows which can have negative impacts on high value assets such as reservoirs or fish habitat.</p>
+<p>This project is focused on the relationship between a variety of environmental, topographic and derived variables and burn severity data for forest and non-forest environments in Utah.</p>
+<p>Burn severity is a measure of ecological change after wildfire, commonly assessed in terms of vegetation mortality or biomass loss,
+and is burn severity data is easily collected through remote sensing. Burn severity data is available from the The Monitoring Trends in Burn Severity (MTBS) databas, which containes burn severity data for wildfires &gt;1000 acres across the continental US.
+These data are available in the form of spatially explicit raster layers with continuous and categorical burn severity layers.</p>
+<p>The database used in this project contains fire behavior, structure, topographic, risk and vegetation ‘predictor’ variables for both
+forest and non-forest land along with burn severity data.</p>
+<div id="project-goals" class="section level2">
+<h2><span class="header-section-number">1.1</span> Project goals</h2>
+<p>The specific goal of this project is to vizualize the relationship between burn severity and a variety of environmental variables in forest and non-forest enviornments. This includes creating plots that show:</p>
+<ol style="list-style-type: decimal">
+<li>Burn severity vs. elevation</li>
+<li>Burn severity vs. canopy categories</li>
+<li>Burn severity vs. Vegetation type</li>
+<li>Burn severity vs. elevation with risk and canopy variables overlayed</li>
+</ol>
+</div>
+<div id="project-outline" class="section level2">
+<h2><span class="header-section-number">1.2</span> Project outline</h2>
+<p>The book is composed of the following chapters:</p>
+<ul>
+<li>Chapter 1: data description and structure</li>
+<li>Chapter 2: database creation</li>
+<li>Chapter 3: database connection’</li>
+<li>Chapter 4: forest data visualization</li>
+<li>Chapter 5: non-forest data visualization</li>
+</ul>
 
+</div>
 </div>
             </section>
 

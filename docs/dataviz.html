@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Forest data visualization | Term project draft</title>
+  <meta name="description" content="This is the term project for WILD6900 spring 2021." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Forest data visualization | Term project draft" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is the term project for WILD6900 spring 2021." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Forest data visualization | Term project draft" />
+  
+  <meta name="twitter:description" content="This is the term project for WILD6900 spring 2021." />
+  
+
+<meta name="author" content="Kipling Klimas" />
+
+
+<meta name="date" content="2021-04-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="SQL.html"/>
+<link rel="next" href="ggplot.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#project-goals"><i class="fa fa-check"></i><b>1.1</b> Project goals</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#project-outline"><i class="fa fa-check"></i><b>1.2</b> Project outline</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data description and database structure</a></li>
+<li class="chapter" data-level="3" data-path="creation.html"><a href="creation.html"><i class="fa fa-check"></i><b>3</b> Database creation</a></li>
+<li class="chapter" data-level="4" data-path="SQL.html"><a href="SQL.html"><i class="fa fa-check"></i><b>4</b> Database connection</a></li>
+<li class="chapter" data-level="5" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>5</b> Forest data visualization</a></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Non-forest data visualization</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Term project draft</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dataviz" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Forest data visualization</h1>
+<p>Install packages <code>tidyverse</code>, <code>viridis</code> and <code>ggridges</code></p>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.1     ✓ dplyr   1.0.5
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">sev &lt;-<span class="st"> </span>forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(dem, severity)</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">reg &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula=</span> severity <span class="op">~</span><span class="st"> </span>dem, <span class="dt">data =</span> sev)</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">regs &lt;-<span class="st"> </span><span class="kw">predict</span>(reg, <span class="dt">se.fit =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">regs &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">mean =</span> regs<span class="op">$</span>fit,</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">                    <span class="dt">upr =</span> regs<span class="op">$</span>fit <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>regs<span class="op">$</span>se.fit,</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">                    <span class="dt">lwr =</span> regs<span class="op">$</span>fit <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>regs<span class="op">$</span>se.fit)</a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">            </a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-14" data-line-number="14"><span class="st">  </span><span class="kw">select</span>(dem, severity) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity, <span class="dt">color=</span> dem)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-17" data-line-number="17"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-18" data-line-number="18"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> regs<span class="op">$</span>mean, <span class="dt">color =</span> regs<span class="op">$</span>mean)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-19" data-line-number="19"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Elevation (m)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-20" data-line-number="20"><span class="st">  </span><span class="kw">theme_light</span>() </a></code></pre></div>
+<p><img src="term_project_files/figure-html/f_simple_plots-1.png" width="672" /></p>
+<p>Simple scatter plot of forest severity vs. elevation (m)</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">forest_behavior <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ftypeE =</span> <span class="kw">case_when</span>(</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">~</span><span class="st"> &quot;Surface&quot;</span>,</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">~</span><span class="st"> &quot;Passive&quot;</span>,</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">5</span> <span class="op">~</span><span class="st"> &quot;Passive&quot;</span>,</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">6</span> <span class="op">~</span><span class="st"> &quot;Active&quot;</span>,</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">    ftype_E <span class="op">==</span><span class="st"> </span><span class="dv">7</span> <span class="op">~</span><span class="st"> &quot;Active&quot;</span>,</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">  )) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ftypeE, <span class="dt">x =</span> severity, <span class="dt">fill =</span> ftypeE)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-11" data-line-number="11"><span class="st">  </span>ggridges<span class="op">::</span><span class="kw">geom_density_ridges</span>(<span class="dt">scale =</span> <span class="dv">8</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))  <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Fire type Extreme&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Severity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-14" data-line-number="14"><span class="st">  </span><span class="kw">scale_color_viridis_d</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-15" data-line-number="15"><span class="st">  </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<pre><code>## Picking joint bandwidth of 29.2</code></pre>
+<p><img src="term_project_files/figure-html/behavior-1.png" width="672" /></p>
+<p>Density curves of fire type extreme by severity
+The variable FtypeE represents the fire type under extreme (99 percentile) weather scenarios.
+The three ‘types’ of fire in described by this variable are:
+1. Surface - fire that burns surface fuels
+2. Passive - fire that burns both surface and intermediate ladder fuels
+3. Active - fire that burns in the canopy of the forest</p>
+<p>This density plot is of interest because it shows that Active fire type represents lower severity burned areas than
+Surface or Passive, which is contrary to a popular assumption that crown/canopy fire is associated with high-severity
+burned areas.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">forest_veg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(severity_id)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> NVCSsubclass, <span class="dt">y =</span> severity)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Canopy type&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </a></code></pre></div>
+<p><img src="term_project_files/figure-html/ftypebarplot-1.png" width="672" /></p>
+<p>Bar plot of canopy categories</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(forest_risk, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">  </span><span class="kw">select</span>(dem, fri, severity) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity, <span class="dt">color =</span> fri)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Elevation (m)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_light</span>() </a></code></pre></div>
+<p><img src="term_project_files/figure-html/risk_elevation-1.png" width="672" /></p>
+<p>Elevation x severity x fire risk index</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(forest_structure, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity, <span class="dt">color =</span> wwacc)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Elevation (m)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_light</span>() </a></code></pre></div>
+<p><img src="term_project_files/figure-html/cc_elevation-1.png" width="672" /></p>
+<p>Elevation x severity x canopy closure</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">forest_topo <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(forest_structure, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dem, <span class="dt">y =</span> severity, <span class="dt">color =</span> wwafuel40)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;magma&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Severity (dNBR)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Elevation (m)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<p><img src="term_project_files/figure-html/fuels_elevation-1.png" width="672" /></p>
+<p>Elevation x severity x fuels40</p>
+<p>Mean severity by vegetation type</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">forest_veg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(EVT) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">  </span><span class="kw">unique</span>()</a></code></pre></div>
+<pre><code>##  [1] &quot;Southern Rocky Mountain Mesic Montane Mixed Conifer Forest and Woodland&quot;    
+##  [2] &quot;Rocky Mountain Aspen Forest and Woodland&quot;                                   
+##  [3] &quot;Colorado Plateau Pinyon-Juniper Woodland&quot;                                   
+##  [4] &quot;Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland&quot;          
+##  [5] &quot;Southern Rocky Mountain Ponderosa Pine Woodland&quot;                            
+##  [6] &quot;Inter-Mountain Basins Aspen-Mixed Conifer Forest and Woodland&quot;              
+##  [7] &quot;Great Basin Pinyon-Juniper Woodland&quot;                                        
+##  [8] &quot;Abies concolor Forest Alliance&quot;                                             
+##  [9] &quot;Inter-Mountain Basins Curl-leaf Mountain Mahogany Woodland and Shrubland&quot;   
+## [10] &quot;Rocky Mountain Bigtooth Maple Ravine Woodland&quot;                              
+## [11] &quot;Rocky Mountain Lodgepole Pine Forest&quot;                                       
+## [12] &quot;Southern Rocky Mountain Dry-Mesic Montane Mixed Conifer Forest and Woodland&quot;
+## [13] &quot;Inter-Mountain Basins Juniper Savanna&quot;                                      
+## [14] &quot;Rocky Mountain Montane Riparian Systems&quot;                                    
+## [15] &quot;Inter-Mountain Basins Montane Riparian Systems&quot;                             
+## [16] &quot;Rocky Mountain Subalpine-Montane Limber-Bristlecone Pine Woodland&quot;          
+## [17] &quot;Recently Disturbed Developed Upland Deciduous Forest&quot;                       
+## [18] &quot;Developed-Upland Deciduous Forest&quot;                                          
+## [19] &quot;Rocky Mountain Foothill Limber Pine-Juniper Woodland&quot;                       
+## [20] &quot;Middle Rocky Mountain Montane Douglas-fir Forest and Woodland&quot;              
+## [21] &quot;Developed-Upland Mixed Forest&quot;                                              
+## [22] &quot;Recently Disturbed Developed Upland Evergreen Forest&quot;                       
+## [23] &quot;Developed-Upland Evergreen Forest&quot;                                          
+## [24] &quot;Southern Rocky Mountain Ponderosa Pine Savanna&quot;                             
+## [25] &quot;Western Great Plains Floodplain Systems&quot;                                    
+## [26] &quot;Rocky Mountain Subalpine Mesic-Wet Spruce-Fir Forest and Woodland&quot;          
+## [27] &quot;Inter-Mountain Basins Subalpine Limber-Bristlecone Pine Woodland&quot;</code></pre>
+<p>Lets check out the mean severity for each of these forest types.
+The red dashed line is the high-severity threshold.
+There are three forest types that have an average severity at or above the high-severity threshold of about 450 dNBR.
+The three forest types are:</p>
+<ol style="list-style-type: decimal">
+<li>Rocky Mountain Subalpine Dry-Mesic Spruce-Fir Forest and Woodland</li>
+<li>Rocky Mountain Subalpine-Montane Limber-Bristlecone Pine Woodland</li>
+<li>Southern Rocky Mountain Mesic Montane Mixed Conifer Forest and Woodland</li>
+</ol>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">forest_veg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(severity, <span class="dt">by =</span> <span class="st">&quot;severity_id&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(EVT) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_severity =</span> <span class="kw">mean</span>(severity, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> EVT, <span class="dt">y =</span> mean_severity)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">450</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot; &quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean severity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-10" data-line-number="10"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">40</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </a></code></pre></div>
+<p><img src="term_project_files/figure-html/vegtype_mean_sev-1.png" width="672" /></p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="SQL.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["term_project.pdf", "term_project.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
